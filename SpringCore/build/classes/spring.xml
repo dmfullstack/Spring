@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<!-- Setter Injection -->
+	<bean id="traingle" class="com.helpezee.beans.Traingle">
+		<property name="type" value="Equilateral" />
+	</bean>
+
+	<!-- constructor Injection -->
+	<bean id="circle" class="com.helpezee.beans.Circle" scope="prototype">
+		<!-- a) using type attribute -->
+		<constructor-arg value="Equilateral" type="java.lang.String" />
+		<constructor-arg value="20" type="int" />
+		<!-- b) using index attribute -->
+		<!--<constructor-arg value="Equilateral" index="1"/> -->
+		<!--<constructor-arg value="20" index="0"/> -->
+	</bean>
+
+
+	<!-- Object Injection using Setter Injection -->
+	<bean id="line" class="com.helpezee.beans.Line">
+		<property name="pointA" ref="pointA" />
+		<property name="pointB" ref="pointB" />
+		<property name="pointC" ref="pointC" />
+	</bean>
+
+	<bean name="pointA" id="pointA" class="com.helpezee.beans.Point">
+		<property name="x" value="0" />
+		<property name="y" value="0" />
+	</bean>
+	<bean name="pointB" class="com.helpezee.beans.Point">
+		<property name="x" value="-20" />
+		<property name="y" value="0" />
+	</bean>
+
+	<bean name="pointC" class="com.helpezee.beans.Point">
+		<property name="x" value="0" />
+		<property name="y" value="20" />
+	</bean>
+
+	<!-- Inner Beans,Alias,idref -->
+
+	<bean id="line1" class="com.helpezee.beans.Line">
+		<property name="pointA">
+			<ref local="pointA" />
+		</property>
+		<property name="pointB">
+			<bean class="com.helpezee.beans.Point">
+				<property name="x" value="-20" />
+				<property name="y" value="0" />
+			</bean>
+		</property>
+		<property name="pointC">
+			<bean class="com.helpezee.beans.Point">
+				<property name="x" value="0" />
+				<property name="y" value="20" />
+			</bean>
+		</property>
+	</bean>
+<alias name="line1" alias="line.new" />
+<!-- Using Collections in Spring -->
+
+<!-- Passing bean reference  for java.util.List -->
+<bean id="List" class="com.helpezee.beans.ListLine" >
+<property name="points">
+		<list>
+		<ref  bean="pointA"/>
+		<ref  bean="pointB"/>
+		<ref  bean="pointC"/>
+		</list>
+</property>
+</bean>
+
+<!-- Passing bean reference  for java.util.Set -->
+<bean id="Set" class="com.helpezee.beans.SetLine" >
+<property name="points">
+		<set>
+		<ref  bean="pointA"/>
+		<ref  bean="pointB"/>
+		<ref  bean="pointC"/>
+		</set>
+</property>
+</bean>
+
+<!-- Passing bean reference  for java.util.Map -->
+<bean id="Map" class="com.helpezee.beans.MapLine" >
+<property name="points">
+		<map>
+		<entry key="one" value-ref="pointA"/>
+		<entry key="two" value-ref="pointB"/>
+		<entry key="three" value-ref="pointC"/>
+		</map>
+</property>
+</bean>
+
+<!-- Example using Set,Map,List and Properties -->
+<bean name="collections" class="com.helpezee.beans.Collections">
+<property name="nameList">
+<list>
+<value>one</value>
+<value>two</value>
+<value>three</value>
+<value>four</value>
+<value>1</value>
+<value>2</value>
+<value>3</value>
+<value>four</value>
+</list>
+</property>
+<property name="classSet">
+<set>
+<value>five</value>
+<value>six</value>
+<value>seven</value>
+<value>eight</value>
+<value>five</value>
+<value>five</value>
+<value>seven</value>
+<value>seven</value>
+</set>
+</property>
+<property name="subjectMap">
+<map>
+<entry key="1" value="nine"/>
+<entry key="2" value="ten"/>
+<entry key="3" value="eleven"/>
+<entry key="4" value="tweleve"/>
+<entry key="4" value="thirteen"/>
+</map>
+</property>
+<property name="noneProp">
+<props>
+<prop key="1">AP</prop>
+<prop key="1">KA</prop>
+<prop key="2">MH</prop>
+<prop key="3">TG</prop>
+<prop key="4">GJ</prop>
+</props>
+</property>
+</bean>
+</beans>
