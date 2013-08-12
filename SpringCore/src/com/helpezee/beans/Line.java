@@ -1,9 +1,18 @@
 package com.helpezee.beans;
 
 public class Line {
+	/*public Line(Point pointA, Point pointB, Point pointC) {
+		super();
+		this.pointA = pointA;
+		this.pointB = pointB;
+		this.pointC = pointC;
+	}
+*/
 	private Point pointA;
 	private Point pointB;
 	private Point pointC;
+	
+	
 
 	public Point getPointA() {
 		return pointA;
