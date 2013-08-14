@@ -4,14 +4,33 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 
 import com.helpezee.interfaces.Shape;
 
+//@Component or @Service or Repository
+@Controller
 public class Circle2 implements Shape{
 
 	
 	private Point center;
 	
+	@Autowired
+	private MessageSource messageSource;
+	
+	
+	public MessageSource getMessageSource() {
+		return messageSource;
+	}
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
+	}
 	public Point getCenter() {
 		return center;
 	}
@@ -34,8 +53,9 @@ public class Circle2 implements Shape{
 
 	@Override
 	public void draw() {
-		System.out.println("Drawing circle");
-		System.out.println("Circle is::("+center.getX()+","+center.getY()+")");
+		System.out.println(this.messageSource.getMessage("drawing.circle", null, "Default Message1", null));
+		System.out.println(this.messageSource.getMessage("drawing.point", new Object[]{center.getX(),center.getY()}, "Default Message2", null));
+		
 		
 	}
 
