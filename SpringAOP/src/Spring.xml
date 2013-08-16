@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>  
+ <beans xmlns="http://www.springframework.org/schema/beans"  
+      xmlns:aop="http://www.springframework.org/schema/aop"  
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+      xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+     
+     <!-- The @AspectJ support is enabled by including the below tag -->     
+     <aop:aspectj-autoproxy/> 
+     
+     <bean name="circle" class="com.helpezee.model.Circle">
+     <property name="name" value="Circle name"></property>
+     </bean>
+     
+     <bean name="triangle" class="com.helpezee.model.Triangle">
+     <property name="name" value="Triangle name"></property>
+     </bean>
+     
+     <bean name="shapeService" class="com.helpezee.service.Shape" autowire="byName"/>
+     
+     <bean name="loggingAspect" class="com.helpezee.aspect.LoggingAspect"/>
+     </beans>

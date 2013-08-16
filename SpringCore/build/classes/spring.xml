@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!--<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd"> -->
 
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- default-init-method="initmethod" default-destroy-method="destroymethod" -->
+
 	<!-- Setter Injection -->
 	<bean id="traingle" class="com.helpezee.beans.Traingle">
 		<property name="type" value="Equilateral" />
@@ -24,7 +31,6 @@
 		<property name="pointB" ref="pointB" />
 		<property name="pointC" ref="pointC" />
 	</bean>
-
 	<bean name="pointA" id="pointA" class="com.helpezee.beans.Point">
 		<property name="x" value="0" />
 		<property name="y" value="0" />
@@ -33,14 +39,12 @@
 		<property name="x" value="-20" />
 		<property name="y" value="0" />
 	</bean>
-
 	<bean name="pointC" class="com.helpezee.beans.Point">
 		<property name="x" value="0" />
 		<property name="y" value="20" />
 	</bean>
 
 	<!-- Inner Beans,Alias,idref -->
-
 	<bean id="line1" class="com.helpezee.beans.Line">
 		<property name="pointA">
 			<ref local="pointA" />
@@ -58,85 +62,219 @@
 			</bean>
 		</property>
 	</bean>
-<alias name="line1" alias="line.new" />
-<!-- Using Collections in Spring -->
+	<alias name="line1" alias="line.new" />
 
-<!-- Passing bean reference  for java.util.List -->
-<bean id="List" class="com.helpezee.beans.ListLine" >
-<property name="points">
-		<list>
-		<ref  bean="pointA"/>
-		<ref  bean="pointB"/>
-		<ref  bean="pointC"/>
-		</list>
-</property>
-</bean>
+	<!-- Using Collections in Spring -->
 
-<!-- Passing bean reference  for java.util.Set -->
-<bean id="Set" class="com.helpezee.beans.SetLine" >
-<property name="points">
-		<set>
-		<ref  bean="pointA"/>
-		<ref  bean="pointB"/>
-		<ref  bean="pointC"/>
-		</set>
-</property>
-</bean>
+	<!-- Passing bean reference for java.util.List -->
+	<bean id="List" class="com.helpezee.beans.ListLine">
+		<property name="points">
+			<list>
+				<ref bean="pointA" />
+				<ref bean="pointB" />
+				<ref bean="pointC" />
+			</list>
+		</property>
+	</bean>
 
-<!-- Passing bean reference  for java.util.Map -->
-<bean id="Map" class="com.helpezee.beans.MapLine" >
-<property name="points">
-		<map>
-		<entry key="one" value-ref="pointA"/>
-		<entry key="two" value-ref="pointB"/>
-		<entry key="three" value-ref="pointC"/>
-		</map>
-</property>
-</bean>
+	<!-- Passing bean reference for java.util.Set -->
+	<bean id="Set" class="com.helpezee.beans.SetLine">
+		<property name="points">
+			<set>
+				<ref bean="pointA" />
+				<ref bean="pointB" />
+				<ref bean="pointC" />
+			</set>
+		</property>
+	</bean>
 
-<!-- Example using Set,Map,List and Properties -->
-<bean name="collections" class="com.helpezee.beans.Collections">
-<property name="nameList">
-<list>
-<value>one</value>
-<value>two</value>
-<value>three</value>
-<value>four</value>
-<value>1</value>
-<value>2</value>
-<value>3</value>
-<value>four</value>
-</list>
-</property>
-<property name="classSet">
-<set>
-<value>five</value>
-<value>six</value>
-<value>seven</value>
-<value>eight</value>
-<value>five</value>
-<value>five</value>
-<value>seven</value>
-<value>seven</value>
-</set>
-</property>
-<property name="subjectMap">
-<map>
-<entry key="1" value="nine"/>
-<entry key="2" value="ten"/>
-<entry key="3" value="eleven"/>
-<entry key="4" value="tweleve"/>
-<entry key="4" value="thirteen"/>
-</map>
-</property>
-<property name="noneProp">
-<props>
-<prop key="1">AP</prop>
-<prop key="1">KA</prop>
-<prop key="2">MH</prop>
-<prop key="3">TG</prop>
-<prop key="4">GJ</prop>
-</props>
-</property>
-</bean>
+	<!-- Passing bean reference for java.util.Map -->
+	<bean id="Map" class="com.helpezee.beans.MapLine">
+		<property name="points">
+			<map>
+				<entry key="one" value-ref="pointA" />
+				<entry key="two" value-ref="pointB" />
+				<entry key="three" value-ref="pointC" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- Example using Set,Map,List and Properties -->
+	<bean name="collections" class="com.helpezee.beans.Collections">
+		<property name="nameList">
+			<list>
+				<value>one</value>
+				<value>two</value>
+				<value>three</value>
+				<value>four</value>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+				<value>four</value>
+			</list>
+		</property>
+		<property name="classSet">
+			<set>
+				<value>five</value>
+				<value>six</value>
+				<value>seven</value>
+				<value>eight</value>
+				<value>five</value>
+				<value>five</value>
+				<value>seven</value>
+				<value>seven</value>
+			</set>
+		</property>
+		<property name="subjectMap">
+			<map>
+				<entry key="1" value="nine" />
+				<entry key="2" value="ten" />
+				<entry key="3" value="eleven" />
+				<entry key="4" value="tweleve" />
+				<entry key="4" value="thirteen" />
+			</map>
+		</property>
+		<property name="noneProp">
+			<props>
+				<prop key="1">AP</prop>
+				<prop key="1">KA</prop>
+				<prop key="2">MH</prop>
+				<prop key="3">TG</prop>
+				<prop key="4">GJ</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- AutoWiring byName,byType,constructor -->
+	<bean id="Autowire" class="com.helpezee.beans.Line" autowire="byName"
+		scope="singleton">
+	</bean>
+
+	<!-- Bean SCopes singleton,protype,request,session,globalsession -->
+
+	<!-- singleton -->
+	<bean id="singleton" class="com.helpezee.beans.Scope" scope="singleton">
+	</bean>
+
+	<!-- prototype -->
+	<bean id="prototyp" class="com.helpezee.beans.Scope" scope="prototype">
+	</bean>
+
+	<!-- Aware interfaces -->
+	<bean id="appaware" class="com.helpezee.beans.Aware" />
+
+	<!-- Bean definition Inheritance -->
+
+	<bean id="parentLine" class="com.helpezee.beans.Line">
+		<property name="pointA" ref="pointA" />
+	</bean>
+	<bean id="childLine" class="com.helpezee.beans.Line" parent="parentLine">
+		<property name="pointB" ref="pointB" />
+		<property name="pointC" ref="pointC" />
+	</bean>
+
+	<!-- Using List -->
+	<bean id="parentLine1" class="com.helpezee.beans.ListLine"
+		abstract="true">
+		<property name="points">
+			<list>
+				<ref bean="pointA" />
+			</list>
+		</property>
+	</bean>
+	<bean id="childLine1" class="com.helpezee.beans.ListLine" parent="parentLine1">
+		<property name="points">
+			<list merge="true">
+				<ref bean="pointB" />
+				<ref bean="pointC" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- CallBack Methods defined using interface InitializingBean ,DisposableBean -->
+	<bean id="callback" class="com.helpezee.beans.CallBackBean"
+		init-method="initmethod" destroy-method="destroymethod">
+		<property name="pointA" ref="pointA" />
+		<property name="pointB" ref="pointB" />
+		<property name="pointC" ref="pointC" />
+	</bean>
+
+
+	<!-- BeanPostProcessor -->
+	<bean id="beanpostprocess" class="com.helpezee.beans.BeanPostProcessorBean">
+		<property name="pointA" ref="pointA" />
+		<property name="pointB" ref="pointB" />
+		<property name="pointC" ref="pointC" />
+	</bean>
+	<bean class="com.helpezee.processors.DisplayNameBeanPostProcessor" />
+
+	<!-- BeanFactoryPostProcessor -->
+	<bean id="beanfactorypostprocess" class="com.helpezee.beans.BeanFacoryPostProcessorBean">
+		<property name="point1" ref="point1" />
+		<property name="point2" ref="point2" />
+		<property name="point3" ref="point3" />
+	</bean>
+	<bean name="point1" class="com.helpezee.beans.Point">
+		<property name="x" value="${point1.pointX}" />
+		<property name="y" value="${point1.pointY}" />
+	</bean>
+	<bean name="point2" class="com.helpezee.beans.Point">
+		<property name="x" value="${point2.pointX}" />
+		<property name="y" value="${point2.pointY}" />
+	</bean>
+	<bean name="point3" class="com.helpezee.beans.Point">
+		<property name="x" value="${point3.pointX}" />
+		<property name="y" value="${point3.pointY}" />
+	</bean>
+	<bean class="com.helpezee.processors.BeanFactoryPostProcessorEx" />
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="config.properties" />
+	</bean>
+
+	<!-- Coding to Interfaces -->
+	<bean id="circle1" class="com.helpezee.beans.Circle1">
+		<property name="center" ref="pointA"></property>
+	</bean>
+	<bean id="triangle1" class="com.helpezee.beans.Traingle1">
+		<property name="pointA" ref="pointA" />
+		<property name="pointB" ref="pointB" />
+		<property name="pointC" ref="pointC" />
+	</bean>
+
+
+	<!-- Required Annotaion -->
+	<!--<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/> -->
+	<bean id="requiredannotation" class="com.helpezee.beans.Circle3">
+		<property name="center" ref="pointA" />
+	</bean>
+
+	<!-- Autowired Annotation -->
+	<!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> -->
+	<bean id="Autowiredannotation" class="com.helpezee.beans.Circle3">
+	</bean>
+	<bean name="Point" class="com.helpezee.beans.Point">
+		<qualifier value="circlerelated" />
+		<property name="x" value="-20" />
+		<property name="y" value="0" />
+	</bean>
+
+	<!-- shortcut: instead of defining all the BeanPostProcessor it is better 
+		to use the below tag -->
+	<context:annotation-config />
+
+
+	<!-- JSR 250 Annotations Resource,PostConstruct and PreDestroy -->
+	<bean id="jsr250annotation" class="com.helpezee.beans.Circle2" />
+	<!-- Component and Sterotype Annotations -->
+	<context:component-scan base-package="com.helpezee.beans,com.helpezee.event.listerner"></context:component-scan>
+	<!-- Message Resource for Internalization -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>i18</value>
+			</list>
+		</property>
+	</bean>
 </beans>
