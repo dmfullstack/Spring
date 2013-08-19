@@ -5,16 +5,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.helpezee.service.Shape;
 
-public class PointCutsandWildcardExpression {
+public class NamingConventionsandCustomAdviceAnnotations {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		ApplicationContext context=new ClassPathXmlApplicationContext("Spring.xml");
+		Shape shape=context.getBean("shapeService",Shape.class);
+		shape.getCircle();
 	
-		ApplicationContext ctx=new ClassPathXmlApplicationContext("spring.xml");
-		Shape shape=ctx.getBean("shapeService",Shape.class);
-		System.out.println(shape.getCircle().getName());
 	}
 
 }
