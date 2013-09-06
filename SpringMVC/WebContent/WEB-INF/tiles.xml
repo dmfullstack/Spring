@@ -20,5 +20,26 @@
     </definition>
         
    
+    <definition name="contact" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/contact.jsp" />
+    </definition>
+    
+     <definition name="documents" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/documents.jsp" />
+    </definition>
+    
+    
+    <definition name="fileuploadform" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/file_upload_form.jsp" />
+    </definition>
+    
+     <definition name="fileuploadsuccess" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/file_upload_success.jsp" />
+    </definition>
+    
  
 </tiles-definitions>

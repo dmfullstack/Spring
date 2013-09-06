@@ -4,14 +4,31 @@
     xmlns:p="http://www.springframework.org/schema/p"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:lang="http://www.springframework.org/schema/lang"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
  	http://www.springframework.org/schema/context
  	http://www.springframework.org/schema/context/spring-context-3.0.xsd
  	http://www.springframework.org/schema/mvc
- 	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+ 	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+ 	http://www.springframework.org/schema/aop 
+ 	http://www.springframework.org/schema/aop/spring-aop.xsd
+ 	http://www.springframework.org/schema/jee 
+ 	http://www.springframework.org/schema/jee/spring-jee.xsd
+	http://www.springframework.org/schema/lang 
+	http://www.springframework.org/schema/lang/spring-lang.xsd
+ 	http://www.springframework.org/schema/tx 
+ 	http://www.springframework.org/schema/tx/spring-tx.xsd
+ 	http://www.springframework.org/schema/util 
+ 	http://www.springframework.org/schema/util/spring-util.xsd">
  	
- 	<context:component-scan  base-package="com.helpezee.controller" />
+ 	<context:component-scan  base-package="com.helpezee.controller,com.helpezee.service,com.helpezee.dao,com.helpezee.validators" />
+ 	<context:annotation-config />
+ 	 <tx:annotation-driven />
     
 <!--   
  <bean id="viewResolver"
@@ -22,7 +39,8 @@
     </bean>
    -->
    
-   <!-- Tiles Start -->
+   <!-- ############################Tiles Start############################## -->
+    
     <bean id="viewResolver"  class="org.springframework.web.servlet.view.UrlBasedViewResolver">
     <property name="viewClass">
         <value>
@@ -39,28 +57,106 @@
 </bean>
 <!-- Tiles End -->
 
-<!-- Internalization Start -->
+<!-- ##################Internalization Start############################## -->
+
+<!-- messageSource bean is an instance of class ReloadableResourceBundleMessageSource and we also have specified a property basename with value “classpath:messages”. ReloadableResourceBundleMessageSource class will load the property files containing message definition starting with prefix “messages-” -->
 <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
     <property name="basename" value="classpath:messages" />
     <property name="defaultEncoding" value="UTF-8"/>
 </bean>
-
+<!-- we defined an interceptor bean localeChangeInterceptor which is an instance of class org.springframework.web.servlet.i18n.LocaleChangeInterceptor. Also note here that we have specified a property paramName with value lang. This interceptor is invoked whenever a request is made with parameter “lang” with different values. -->
 <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
     <property name="paramName" value="lang" />
-</bean>
-
- 
-<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"><!-- org.springframework.web.servlet.i18n.SessionLocaleResolver,org.springframework.web.servlet.i18n.CookieLocaleResolver -->
+    </bean>
+<!-- Once the localeChangeInterceptor intercepts the change in the language, the changes are then stored in the cookies using class org.springframework.web.servlet.i18n.CookieLocaleResolver. -->
+<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
     <property name="defaultLocale" value="en"/>
 </bean>
  
+<!-- Internalization End -->
+
+<!-- ################Theme changer################## -->
+
+<!-- themeSource bean is an instance of class ResourceBundleThemeSource and we also have specified a property basenamePrefix with value “theme-”. ResourceBundleThemeSource class will load the property files containing theme definition starting with prefix “theme-” -->
+<bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+        <property name="basenamePrefix" value="theme-" />
+</bean>
+<!-- we defined an interceptor bean themeChangeInterceptor which is an instance of class org.springframework.web.servlet.theme.ThemeChangeInterceptor. Also note here that we have specified a property paramName with value theme. This interceptor is invoked whenever a request is made with parameter “theme” with different values. -->
+<bean id="themeChangeInterceptor" class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
+    <property name="paramName" value="theme" />
+</bean>
+<!-- Once the themeChangeInterceptor intercepts the change in the theme, the changes are then stored in the cookies using class org.springframework.web.servlet.theme.CookieThemeResolver. -->
+<bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver">
+    <property name="defaultThemeName" value="default" />
+</bean>
+<!-- Theme changer ends -->
+
+<!-- Hibernate Related -->
+
+<!-- dataSource bean – This is the java datasource used to connect to contact manager database. We provide jdbc driver class, username, password etc in configuration. -->
+<bean id="dataSource"
+        class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+        p:driverClassName="${jdbc.driverClassName}"
+        p:url="${jdbc.databaseurl}" p:username="${jdbc.username}"
+        p:password="${jdbc.password}" />
+ 
+<!-- sessionFactory bean – This is Hibernate configuration where we define different hibernate settings. hibernate.cfg.xml is set a config file which contains entity class mappings --> 
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation">
+            <value>classpath:hibernate.cfg.xml</value>
+        </property>
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.AnnotationConfiguration</value>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                 <prop key="hibernate.connection.SetBigStringTryClob">true</prop>
+                <prop key="hibernate.jdbc.batch_size">0</prop>
+            </props>
+        </property>
+    </bean>
+<!-- transactionManager bean – We use hibernate transaction manager to manage the transactions of our contact manager application. -->
+	<bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+<!-- Hibernate related ends -->
+
+
+<!-- FileUpload Starts -->
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="maxUploadSize" value="10000000" />
+    </bean>
+
+<!-- FileUpload ends -->
+
+<!--propertyConfigurer bean – This bean is used to load database property file jdbc.properties. The database connection details are stored in this file which is used in hibernate connection settings.  -->
+<bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+        p:location="/WEB-INF/jdbc.properties" />
+      
+        
 <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
     <property name="interceptors">
+    <list>
         <ref bean="localeChangeInterceptor" />
+        <ref bean="themeChangeInterceptor" />
+    </list>
     </property>
 </bean>
 
-<!-- Internalization End -->
+ <mvc:interceptors>
+  <bean id="interceptor" class="com.helpezee.interceptors.I18NInterceptor">
+    <property name="paramName" value="locale" />
+  </bean>
+</mvc:interceptors>
+
+
 </beans>
 <!-- http://viralpatel.net/blogs/spring-3-mvc-internationalization-i18n-localization-tutorial-example/ 
 http://www.dineshonjava.com/2012/12/spring-3-mvc-tiles-plugin-with-example.html#.Uh7oTH8yKfs

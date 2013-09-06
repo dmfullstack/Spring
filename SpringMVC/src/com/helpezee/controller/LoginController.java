@@ -1,13 +1,20 @@
 package com.helpezee.controller;
 
+import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.i18n.*;
+import javax.servlet.*;
 
 import com.helpezee.beans.Login;
 
@@ -16,8 +23,10 @@ import com.helpezee.beans.Login;
 @SessionAttributes
 public class LoginController {
 
+@Autowired
+public LocaleChangeInterceptor local;
+public HttpRequestHandlerServlet request;
 
-	
 @ModelAttribute("Login")
 private Login populateForm()
 {
@@ -25,14 +34,14 @@ Login login= new Login();
 	return login;
 }
 	
-@RequestMapping("/login.html") // The @RequestMapping annotation tells Spring that this Controller should process all requests beginning with /login in the URL path. That includes /login/* and /login.html.
+@RequestMapping("/login") // The @RequestMapping annotation tells Spring that this Controller should process all requests beginning with /login in the URL path. That includes /login/* and /login.html.
 public ModelAndView LoadLoginPage()
 {
 String welcome="Namasthe";
 return new ModelAndView("login","welcome",welcome);
 }
 
-@RequestMapping(method= RequestMethod.POST,value="/validateUser.html")
+@RequestMapping(method= RequestMethod.POST,value="/validateUser")
 public ModelAndView validateUser(@ModelAttribute("Login")Login login,BindingResult error){ //This will binds the data from request to the object
 	System.out.println("username---"+login.getUsername());
 	System.out.println("password---"+login.getPassword());
