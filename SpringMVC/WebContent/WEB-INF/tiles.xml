@@ -41,5 +41,29 @@
      <put-attribute name="body" value="/WEB-INF/jsp/file_upload_success.jsp" />
     </definition>
     
+    <definition name="beanNameUrl" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/BeanNameUrlHandlerMapping.jsp" />
+    </definition>
+       <definition name="className" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/ControllerClassNameHandlerMapping.jsp" />
+    </definition>
+    <definition name="simpleUrl" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/SimpleUrlHandlerMapping.jsp" />
+    </definition>
+    <definition name="ResultForm" extends="base.definition">
+    <put-attribute name="title" value="AbstractWizardFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/ResultForm.jsp" />
+    </definition>
+        <definition name="WelcomePage" extends="base.definition">
+    <put-attribute name="title" value="AbstractWizardFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/WelcomePage.jsp" />
+    </definition>
+    
+    
+    
+    
  
 </tiles-definitions>

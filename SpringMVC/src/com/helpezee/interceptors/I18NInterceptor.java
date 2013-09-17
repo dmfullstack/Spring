@@ -27,7 +27,7 @@ public class I18NInterceptor implements HandlerInterceptor  {
 		  @Override
 		  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		      throws ServletException {
-		    System.out.println("Pre-Handle");
+		    //System.out.println("Pre-Handle");
 		   return true;
 		  }
 		   
@@ -39,7 +39,7 @@ public class I18NInterceptor implements HandlerInterceptor  {
 		public void afterCompletion(HttpServletRequest arg0,
 				HttpServletResponse arg1, Object arg2, Exception arg3)
 				throws Exception {
-		System.out.println("afterCompletion");
+		//System.out.println("afterCompletion");
 			
 		}
 
@@ -47,7 +47,7 @@ public class I18NInterceptor implements HandlerInterceptor  {
 		public void postHandle(HttpServletRequest arg0,
 				HttpServletResponse arg1, Object arg2, ModelAndView arg3)
 				throws Exception {
-			System.out.println("postHandle");
+			//System.out.println("postHandle");
 			
 		}
 		}

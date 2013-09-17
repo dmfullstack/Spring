@@ -30,18 +30,19 @@
  	<context:annotation-config />
  	 <tx:annotation-driven />
     
-<!--   
- <bean id="viewResolver"
-        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+ 
+ <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="order" value="1"/>
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
-   -->
    
+
    <!-- ############################Tiles Start############################## -->
     
-    <bean id="viewResolver"  class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+    <property name="order" value="0"/>
     <property name="viewClass">
         <value>
             org.springframework.web.servlet.view.tiles2.TilesView
@@ -56,6 +57,26 @@
     </property>
 </bean>
 <!-- Tiles End -->
+
+<!-- ##########################AbstractWizardFormController################## -->
+ <bean   class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" >
+ <property name="order" value="1"/>
+ </bean>
+	<bean class="com.helpezee.controller.UserController" >
+    	   <property name="pages">
+		<list>
+		<!-- follow sequence -->
+		<value>Page1Form</value> <!-- page1, _target0 -->
+		<value>Page2Form</value> <!-- page2, _target1 -->
+		<value>Page3Form</value> <!-- page3, _target2 -->
+		</list>
+	   </property>
+	   <property name="validator">
+		<bean class="com.helpezee.validators.UserValidator" />
+	   </property>
+       </bean>
+       
+<!-- End -->
 
 <!-- ##################Internalization Start############################## -->
 
@@ -142,6 +163,7 @@
       
         
 <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+    <property name="order" value="0" />
     <property name="interceptors">
     <list>
         <ref bean="localeChangeInterceptor" />
