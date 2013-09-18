@@ -57,10 +57,29 @@
     <put-attribute name="title" value="AbstractWizardFormController" />
      <put-attribute name="body" value="/WEB-INF/jsp/ResultForm.jsp" />
     </definition>
-        <definition name="WelcomePage" extends="base.definition">
+    <definition name="WelcomePage" extends="base.definition">
     <put-attribute name="title" value="AbstractWizardFormController" />
      <put-attribute name="body" value="/WEB-INF/jsp/WelcomePage.jsp" />
     </definition>
+    <definition name="userForm1" extends="base.definition">
+    <put-attribute name="title" value="SimpleFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/Registration.jsp" />
+    </definition>
+    <definition name="userSuccess" extends="base.definition">
+    <put-attribute name="title" value="SimpleFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/userSuccess.jsp" />
+    </definition>
+    
+    <definition name="fillForm" extends="base.definition">
+    <put-attribute name="title" value="SimpleFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/fillForm.jsp" />
+    </definition>
+    <definition name="viewForm" extends="base.definition">
+    <put-attribute name="title" value="SimpleFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/viewForm.jsp" />
+    </definition>
+    
+    
     
     
     

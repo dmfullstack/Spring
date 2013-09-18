@@ -1,0 +1,5 @@
+
+Default Controller = Controller
+Default Handler Mapping = BeanNameUrl HandlerMapping
+Default Handler Adapter = Simple Controller Handler Adapter 
+All Controller Components in Spring= implements org.springframework.web.servlet.mvc.Controller interface 

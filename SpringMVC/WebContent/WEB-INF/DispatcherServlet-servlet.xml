@@ -62,6 +62,7 @@
  <bean   class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" >
  <property name="order" value="1"/>
  </bean>
+ 
 	<bean class="com.helpezee.controller.UserController" >
     	   <property name="pages">
 		<list>
@@ -76,6 +77,27 @@
 	   </property>
        </bean>
        
+<!-- End -->
+<!-- ##############SimpleFormController -->
+<bean id="userService" class="com.helpezee.dao.UserServiceImpl" />
+<bean  class="com.helpezee.controller.SimpleHandlerController" >
+<property name="userService" ref="userService"/>
+<property name="formView" value="userForm1"/>
+<property name="successView" value="userSuccess"/>
+</bean> 
+<!-- End -->
+
+<!-- SimpleURLHandlerMapping -->
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+     <property name="order" value="2"/>
+    <property name="mappings">
+    <value>simpleurlhandlermapping.html = processApplicationFormController</value>
+    </property>
+    </bean>
+    <bean id="processApplicationFormController" class="com.helpezee.controller.ProcessApplicationFormController">
+    <property name="formView" value="fillForm" />
+    <property name="successView" value="viewForm" />
+    </bean>
 <!-- End -->
 
 <!-- ##################Internalization Start############################## -->
