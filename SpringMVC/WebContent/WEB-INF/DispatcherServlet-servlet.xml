@@ -87,13 +87,27 @@
 </bean> 
 <!-- End -->
 
+<!-- MultiActionController -->
+  <bean id="MultiProcessorController" class="com.helpezee.controller.MultiProcessorController">
+        <property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver">
+<!--            <property name="prefix" value="test" />-->
+<!--	   		<property name="prefix" value="multiaction" />-->
+	   		</bean>
+        </property>
+    </bean> 
+
 <!-- SimpleURLHandlerMapping -->
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
      <property name="order" value="2"/>
     <property name="mappings">
-    <value>simpleurlhandlermapping.html = processApplicationFormController</value>
+    <value>
+    simpleurlhandlermapping.html = processApplicationFormController
+    *.html = MultiProcessorController
+    </value>
     </property>
     </bean>
+    
     <bean id="processApplicationFormController" class="com.helpezee.controller.ProcessApplicationFormController">
     <property name="formView" value="fillForm" />
     <property name="successView" value="viewForm" />

@@ -13,9 +13,7 @@ $(document).ready(function() {
                 '<tr><td>'+
                 '   <input type="file" name="files['+ fileIndex +']" />'+
                 '</td></tr>');
-        alert('<tr><td>'+
-                '   <input type="file" name="files['+ fileIndex +']" />'+
-        '</td></tr>');
+     
     });
    
      

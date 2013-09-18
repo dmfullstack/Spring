@@ -12,19 +12,19 @@
 <tr>
 <td valign="top">
 <table >
-<tr><td nowrap="nowrap"><a href="index.html">Spring3-Hibernate3 Example</a></td></tr>
-<tr><td nowrap="nowrap"><a href="uploadfile.html">Fileupload and View</a></td></tr>
-<tr><td nowrap="nowrap"><a href="multifileshow.html">Multi Fileupload </a></td></tr>
+<tr><td nowrap="nowrap"><a href="index.html">Spring3-Hibernate3 Example*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="uploadfile.html">Fileupload and View*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="multifileshow.html">Multi Fileupload*</a></td></tr>
 <tr><td><b>Controllers</b></td></tr>
 <tr><td nowrap="nowrap"><a href="#">AbstractController</a></td></tr>
 <tr><td><i>13.3.2. Other simple controllers</i></td></tr>
 <tr><td nowrap="nowrap"><a href="#">ParameterizableViewController </a></td></tr>
 <tr><td nowrap="nowrap"><a href="#">UrlFilenameViewController </a></td></tr>
 <tr><td><i>13.3.3. The MultiActionController</i></td></tr>
-<tr><td nowrap="nowrap"><a href="simplehandler.html">MultiActionController</a></td></tr>
+<tr><td nowrap="nowrap"><a href="show.html">MultiActionController*</a></td></tr>
 <tr><td><i>Command controllers</i></td></tr>
-<tr><td nowrap="nowrap"><a href="user.html">AbstractWizardFormController </a></td></tr>
-<tr><td nowrap="nowrap"><a href="simplehandler.html">SimpleFormController</a></td></tr>
+<tr><td nowrap="nowrap"><a href="user.html">AbstractWizardFormController*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="simplehandler.html">SimpleFormController*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="#">AbstractCommandController </a></td></tr>
 <tr><td nowrap="nowrap"><a href="#">AbstractFormController </a></td></tr>
 <tr><td><i>Others controllers</i></td></tr>
@@ -35,9 +35,9 @@
 <tr><td nowrap="nowrap"><a href="#">ServletWrappingController </a></td></tr>
 
 <tr><td><b>Handler Mappings</b></td></tr>
-<tr><td nowrap="nowrap"><a href="beanNamehandlermapping.html">BeanNameUrlHandlerMapping(Default) </a></td></tr>
+<tr><td nowrap="nowrap"><a href="beanNamehandlermapping.html">BeanNameUrlHandlerMapping(Default)</a></td></tr>
 <tr><td nowrap="nowrap"><a href="ControllerClassNameHandlerMapping.html">ControllerClassNameHandlerMapping </a></td></tr>
-<tr><td nowrap="nowrap"><a href="simpleurlhandlermapping.html">SimpleUrlHandlerMapping </a></td></tr>
+<tr><td nowrap="nowrap"><a href="simpleurlhandlermapping.html">SimpleUrlHandlerMapping*</a></td></tr>
 <!--<tr><td nowrap="nowrap"><a href="handlermapping.html">CommonsPathMapHandlerMapping </a></td></tr>-->
 
 </table>

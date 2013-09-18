@@ -70,6 +70,15 @@
      <put-attribute name="body" value="/WEB-INF/jsp/userSuccess.jsp" />
     </definition>
     
+    <definition name="showForm" extends="base.definition">
+    <put-attribute name="title" value="MultiActionController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/MultiActionControllerForm.jsp" />
+    </definition>
+    <definition name="result" extends="base.definition">
+    <put-attribute name="title" value="MultiActionController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/MultiActionControllerSuccess.jsp" />
+    </definition>
+    
     <definition name="fillForm" extends="base.definition">
     <put-attribute name="title" value="SimpleFormController" />
      <put-attribute name="body" value="/WEB-INF/jsp/fillForm.jsp" />
@@ -78,8 +87,6 @@
     <put-attribute name="title" value="SimpleFormController" />
      <put-attribute name="body" value="/WEB-INF/jsp/viewForm.jsp" />
     </definition>
-    
-    
     
     
     
