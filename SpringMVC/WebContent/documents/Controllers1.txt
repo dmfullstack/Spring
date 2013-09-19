@@ -1,0 +1,169 @@
+AbstractController : 
+=====================
+It provides a basic infrastructure and all of Spring’s Controller inherit from 
+AbstractController. It offers caching support, setting of the mimetype etc. 
+It has an abstract method ‘handleRequestInternal(HttpServletRequest, HttpServletResponse)’ 
+which should be overridden by subclass.
+
+Features offered by the AbstractController
+-------------------------------------------
+Feature					Explanation
+supportedMethods		indicates what methods this controller should accept. Usually this is set to both GET and POST, but you can modify this to reflect the method you want to support. If a request is received with a method that is not supported by the controller, the client will be informed of this (expedited by the throwing of a ServletException).
+requireSession			indicates whether or not this controller requires a HTTP session to do its work. If a session is not present when such a controller receives a request, the user is informed of this by a ServletException being thrown.
+synchronizeOnSession	use this if you want handling by this controller to be synchronized on the user's HTTP session.
+cacheSeconds			when you want a controller to generate a caching directive in the HTTP response, specify a positive integer here. By default the value of this property is set to -1 so no caching directives will be included in the generated response.
+useExpiresHeader		tweaks your controllers to specify the HTTP 1.0 compatible "Expires" header in the generated response. By default the value of this property is true.
+useCacheHeader			tweaks your controllers to specify the HTTP 1.1 compatible "Cache-Control" header in the generated response. By default the value of this property is true.
+
+When using the AbstractController as the base class for your controllers 
+you only have to override the handleRequestInternal(HttpServletRequest, HttpServletResponse) method, implement your logic, and return a ModelAndView object. Here is short example consisting of a class and a declaration in the web application context.
+
+package samples;
+
+public class SampleController extends AbstractController {
+
+    public ModelAndView handleRequestInternal(
+        HttpServletRequest request,
+        HttpServletResponse response) throws Exception {
+
+        ModelAndView mav = new ModelAndView("hello");
+        mav.addObject("message", "Hello World!");
+        return mav;        
+    }
+}
+
+<bean id="sampleController" class="samples.SampleController">
+    <property name="cacheSeconds" value="120"/>
+</bean>
+
+The above class and the declaration in the web application context is all you need besides setting up a handler mapping (see the section entitled Section 13.4, “Handler mappings”) to get this very simple controller working. This controller will generate caching directives telling the client to cache things for 2 minutes before rechecking. This controller also returns a hard-coded view (which is typically considered bad practice).
+
+
+13.3.2. Other simple controllers
+==================================
+
+Although you can extend AbstractController, Spring provides a number of concrete implementations which offer functionality that is commonly used in simple MVC applications. The ParameterizableViewController is basically the same as the example above, except for the fact that you can specify the view name that it will return in the web application context (and thus remove the need to hard-code the viewname in the Java class).
+
+The UrlFilenameViewController inspects the URL and retrieves the filename of the file request and uses that as a viewname. For example, the filename of http://www.springframework.org/index.html request is index.
+13.3.3. The MultiActionController
+
+Spring offers a MultiActionController class that supports the aggregation of multiple request-handling methods into one controller, which then allows you to group related functionality together. (If you are a Struts veteran you might recognize the similarity between the Struts DispatchAction and the Spring MVC MultiActionController.) The MultiActionController class is defined in a distinct package - org.springframework.web.servlet.mvc.multiaction - and it is capable of mapping requests to method names and then invoking the correct method to handle a particular request. Using the MultiActionController is especially handy when you have a lot of related functionality that would perhaps be nice to define all in a single class without having to implement one Controller for each bit of functionality. The MultiActionController typically is not appropriate for capturing very complex request-handling logic or use cases that address totally-different areas of functionality, and you are encouraged to stick with the standard 'one piece-of-functionality maps to one Controller' for such cases.
+
+There are two usage-styles for the MultiActionController. Either you subclass the MultiActionController and specify the methods that will be resolved by the MethodNameResolver on your subclass, or you define a delegate object, on which methods resolved by the MethodNameResolver will be invoked. If you choose the former style, you do not need to set a delegate, but for the latter style, you will need to inject your delegate object into the MultiActionController as a collaborator (either as a single constructor argument or via the 'setDelegate' method).
+
+The MultiActionController needs some strategy to determine which method to invoke when handling an incoming request: this strategy is defined by the MethodNameResolver interface. The MultiActionController class exposes the 'methodNameResolver' property so that you can inject a MethodNameResolver that is capable of doing that. The methods that you define on a MultiActionController (or on the class of the injected delegate object) must conform to the following signature:
+
+// 'anyMeaningfulName' can be replaced by any method name
+public [ModelAndView | Map | void] anyMeaningfulName(HttpServletRequest, HttpServletResponse [,HttpSession] [,AnyObject])
+
+The full details of this method signature are covered in the class-level Javadoc of the MultiActionController source itself. If you are planning to use the MultiActionController, you are highly encouraged to consult that Javadoc. However, below you will find some basic examples of valid MultiActionController method signatures.
+
+The standard signature (mirrors the Controller interface method).
+
+public ModelAndView displayCatalog(HttpServletRequest, HttpServletResponse)
+
+This signature accepts a Login argument that will be populated (bound) with parameters retrieved from the request.
+
+public ModelAndView login(HttpServletRequest, HttpServletResponse, Login)
+
+This signature requires that the request already have a valid session.
+
+public ModelAndView viewCart(HttpServletRequest, HttpServletResponse, HttpSession)
+
+This signature accepts a Product argument that will be populated (bound) with parameters retrieved from the request and requires that the request already have a valid session. Note that the order of arguments is important: the session must be the third argument, and an object to be bound must always be the final argument (fourth when a session is specified, or third otherwise).
+
+public ModelAndView updateCart(HttpServletRequest, HttpServletResponse, HttpSession, Product)
+
+This signature has a void return type indicating that the handler method assumes the responsibility of writing the response.
+
+public void home(HttpServletRequest, HttpServletResponse)
+
+This signature has a Map return type indicating that a view name translator will be responsible for providing the view name based upon the request, and the model will consist of the Map's entries (see the section entitled Section 13.10, “Convention over configuration” below).
+
+public Map list(HttpServletRequest, HttpServletResponse)
+
+The MethodNameResolver is responsible for resolving method names based on the specifics of the incoming HttpServletRequest. A number of MethodNameResolver implementations are provided for you, and of course you can always write your own. Please also note that the InternalPathMethodNameResolver is the default MethodNameResolver that will be used if you don't inject one explicitly.
+
+    InternalPathMethodNameResolver - interprets the final filename from the request path and uses that as the method name/
+
+    For example, 'http://www.sf.net/testing.view' will result in the method testing(HttpServletRequest, HttpServletResponse) being invoked.
+
+    ParameterMethodNameResolver - interprets a request parameter as the name of the method that is to be invoked.
+
+    For example, 'http://www.sf.net/index.view?method=testIt' will result in the method testIt(HttpServletRequest, HttpServletResponse) being invoked. The 'paramName' property specifies the name of the request parameter that is to be used.
+
+    PropertiesMethodNameResolver - uses a user-defined Properties object with request URLs mapped to method names. For example, when the Properties contain '/index/welcome.html=doIt' and a request to /index/welcome.html comes in, the doIt(HttpServletRequest, HttpServletResponse) method will be invoked. This particular MethodNameResolver uses the Spring PathMatcher class internally, so if the Properties contained '/**/welcom?.html', the example would also have worked.
+
+You may also declare custom methods for handling Exceptions that occur during request handling. The valid signature for such a method is similar to the request handling methods in that the HttpServletRequest and HttpServletResponse must be provided as the first and second parameters respectively. Unlike request handling methods however, the method's name is irrelevant. Instead, when determining which Exception handling method to invoke, the decision is based upon the most specific possible match among the methods whose third argument is some type of Exception. Here is an example signature for one such Exception handling method.
+
+public ModelAndView processException(HttpServletRequest, HttpServletResponse, IllegalArgumentException)
+
+Let's look at an example showing the delegate-style of MultiActionController usage in conjunction with the ParameterMethodNameResolver.
+
+<bean id="paramMultiController"
+      class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
+
+    <property name="methodNameResolver">
+        <bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+            <property name="paramName" value="method"/>
+        </bean>
+    </property>
+
+    <property name="delegate">
+        <bean class="samples.SampleDelegate"/>
+    </property>
+
+</bean>
+}
+
+public class SampleDelegate {
+
+    public ModelAndView retrieveIndex(HttpServletRequest req, HttpServletResponse resp) {
+        return new ModelAndView("index", "date", new Long(System.currentTimeMillis()));
+    }
+}
+
+When using the delegate shown above, we could also configure the PropertiesMethodNameResolver to match any number couple of URLs to the method we defined:
+
+<bean id="propsResolver"
+      class="org....mvc.multiaction.PropertiesMethodNameResolver">
+    <property name="mappings">
+        <value>
+/index/welcome.html=retrieveIndex
+/**/notwelcome.html=retrieveIndex
+/*/user?.html=retrieveIndex
+        </value>
+    </property>
+</bean>
+
+<bean id="paramMultiController" class="org....mvc.multiaction.MultiActionController">
+
+    <property name="methodNameResolver" ref="propsResolver"/>
+    <property name="delegate">
+        <bean class="samples.SampleDelegate"/>
+    </property>
+
+</bean>
+
+13.3.4. Command controllers
+==========================
+
+Spring's command controllers are a fundamental part of the Spring Web MVC package. Command controllers provide a way to interact with data objects and dynamically bind parameters from the HttpServletRequest to the data object specified. They perform a somewhat similar role to the Struts ActionForm, but in Spring, your data objects don't have to implement a framework-specific interface. First, lets examine what command controllers are available straight out of the box.
+
+    AbstractCommandController - a command controller you can use to create your own command controller, capable of binding request parameters to a data object you specify. This class does not offer form functionality; it does however offer validation features and lets you specify in the controller itself what to do with the command object that has been populated with request parameter values.
+
+    AbstractFormController - an abstract controller offering form submission support. Using this controller you can model forms and populate them using a command object you retrieve in the controller. After a user has filled the form, the AbstractFormController binds the fields, validates the command object, and hands the object back to the controller to take the appropriate action. Supported features are: invalid form submission (resubmission), validation, and normal form workflow. You implement methods to determine which views are used for form presentation and success. Use this controller if you need forms, but don't want to specify what views you're going to show the user in the application context.
+
+    SimpleFormController - a form controller that provides even more support when creating a form with a corresponding command object. The SimpleFormController let's you specify a command object, a viewname for the form, a viewname for page you want to show the user when form submission has succeeded, and more.
+
+    AbstractWizardFormController - as the class name suggests, this is an abstract class - your wizard controller should extend it. This means you have to implement the validatePage(), processFinish() and processCancel() methods.
+
+    You probably also want to write a contractor, which should at the very least call setPages() and setCommandName(). The former takes as its argument an array of type String. This array is the list of views which comprise your wizard. The latter takes as its argument a String, which will be used to refer to your command object from within your views.
+
+    As with any instance of AbstractFormController, you are required to use a command object - a JavaBean which will be populated with the data from your forms. You can do this in one of two ways: either call setCommandClass() from the constructor with the class of your command object, or implement the formBackingObject() method.
+
+    AbstractWizardFormController has a number of concrete methods that you may wish to override. Of these, the ones you are likely to find most useful are: referenceData(..) which you can use to pass model data to your view in the form of a Map; getTargetPage() if your wizard needs to change page order or omit pages dynamically; and onBindAndValidate() if you want to override the built-in binding and validation workflow.
+
+    Finally, it is worth pointing out the setAllowDirtyBack() and setAllowDirtyForward(), which you can call from getTargetPage() to allow users to move backwards and forwards in the wizard even if validation fails for the current page.
+
+    For a full list of methods, see the Javadoc for AbstractWizardFormController. There is an implemented example of this wizard in the jPetStore included in the Spring distribution: org.springframework.samples.jpetstore.web.spring.OrderFormController.

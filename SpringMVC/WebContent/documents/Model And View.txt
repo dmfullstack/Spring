@@ -1,0 +1,22 @@
+Model And View
+==============
+Model and View (represented by the class org.springframework.web.servlet.ModelAndView) is returned by the Controller object back to the Dispatcher Servlet. This class is just a Container class for holding the Model and the View information. The Mode object represents some piece of information that can be used by the View to display the information. Both these Objects are given high degree of abstraction in the Spring Framework.
+
+Any kind of View Technology (org.springframework.web.servlet.View) can be plugged into the Framework with ease. For example, Excel, Jasper Reports, Pdf, Xslt, Free Marker, Html, Tiles, Velocity etc. are the supported Frameworks as of now. The Model object (represented by org.springframework.ui.ModelMap) is internally maintained as a Map for storing the Information.
+
+Following are the ways to Construct the Model and the View object.
+	View pdfView = …;
+	Map modelData = new HashMap();
+	 
+	ModelAndView mv1 = new ModelAndView(pdfView, modelData);
+
+The above constructs a ModelAndView object by passing the actual View object 
+along with the Model object. Now consider the following code,
+	ModelAndView mv1 = new ModelAndView("myView", someData);
+
+Note, in the above example, a string with “myView” is passed for the View.
+ This way of specifying a View is called a Logical View. 
+ It means that myView either can point to something called 
+ myView.jsp or myView.pdf or myView.xml. 
+ The Physical View Location corresponding to the Logical View can be made 
+ configurable in the Configuration File.

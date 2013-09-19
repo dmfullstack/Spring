@@ -1,0 +1,130 @@
+Handler Mappings
+=====================
+
+When the Client Request reaches the Dispatcher Servlet, the Dispatcher Servlet tries to find the appropriate Handler Mapping Object to map between the Request and the Handling Object. A Handler Mapping provides an abstract way that tell how the Client’s Url has to be mapped to the Handlers. Four concrete variation of Handler Mapping are available. They are defined as follows
+
+    BeanNameUrl HandlerMapping
+    CommonsPathMap HandlerMapping
+    ControllerClassName HandlerMapping
+    SimpleUrl HandlerMapping
+
+All the above Handler Mapping objects are represented as BeanNameUrlHandlerMapping, CommonsPathMapHandlerMapping, ControllerClassNameHandlerMapping and SimpleUrlHandlerMapping in the org.springframework.web.servlet package respectively. Let us see the functionalities and the differences in usage one by one.
+
+BeanNameUrl HandlerMapping
+--------------------------
+
+This is the simplest of the Handler Mapping and it is used to map the Url that comes from the Clients directly to the Bean Object. In the later section, we will see that the Bean is nothing but a Controller object. For example, consider that the following are the valid Url in a Web Application that a Client Application can request for.
+	http://myserver.com/eMail/showAllMails
+	 
+	http://myserver.com/eMail/composeMail
+	 
+	 
+	http://myserver.com/eMail/deleteMail
+
+Note that the Url (excluding the Application Context) in the above cases are 'showAllMails', 'composeMail' and 'deleteMail'. This means that the Framework will look for Bean Definitions with Identifiers ‘showAllMails’, ‘composeMail’ and ‘deleteMail’. Consider the following Xml code snippet in the Configuration file,
+	<beans>
+	 
+	    <bean name="/showAllMails.jsp"
+	    class="com.javabeat.net.ShowAllMailsController">
+	    </bean>
+	 
+	    <bean name="/composeMail.jsp"
+	    class="com.javabeat.net.ComposeMailController">
+	    </bean>
+	 
+	    <bean name="/ deleteMail.jsp"
+	    class="com.javabeat.net.DeleteMailController">
+	    </bean>
+	 
+	</beans>
+
+So, in BeanNameUrl Handler Mapping, the Url of the Client is directly mapped to the Controller. To enable this kind of Handler Mapping in the Application, the Configuration file should have a similar kind of definition like the following,
+	<beans>
+	 
+	    …
+	   <bean id="beanNameUrl"
+	   class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	    …
+	 
+	</beans>
+	
+CommonsPathMap HandlerMapping
+-----------------------------
+
+This is a rarely used Handler Mapping in which case, the name of the Url to which the Controller has to be mapped is specified directly in the Source file of the Controller. Considering the previous example, if we want to map ‘showAllMails’, ‘composeMail’ and ‘deleteMail’ to Controllers namely ShowAllMailsController, ComposeMailController and DeleteMailController, then the mapping information must be specified in the form of meta-data in the source files inside the Javadoc comments. Consider the following Controller Definitions,
+	/**
+	*@@ org.springframework.web.servlet.handler.commonsattributes.
+	*PathMap("/showAllMails.jsp")
+	*/
+	public class ShowAllMailsController{
+	}
+	 
+	/**
+	*@@ org.springframework.web.servlet.handler.commonsattributes.
+	*PathMap("/composeMail.jsp")
+	*/
+	public class ComposeMailController{
+	}
+	 
+	/**
+	*@@ org.springframework.web.servlet.handler.commonsattributes.
+	*PathMap("/deleteMail.jsp")
+	*/
+	public class DeleteMailController {
+0	}
+
+The attribute must point to org.springframework.web.servlet.handler.commonsattributes.PathMap. By defining Controllers in this way, one more additional compilation step is needed. That is to make the availability of this attribute in the Class files, this Java Source has to be compiled with the Commons Attribute Compiler which comes along with the Spring Distribution. As before, to enable this kind of mapping , the Configuration File should have an entry similar to this,
+	<beans>
+	 
+	    <bean id="metaHandlerMapping" class="org.springframework.web.servlet.handler.
+	    metadata.CommonsPathMapHandlerMapping"/>
+	 
+	</beans>
+	    
+ControllerClassName HandlerMapping
+-----------------------------------
+
+In this kind of Handler Mapping, the name of the Controller is taking directly from the Url itself with slight modifications. For example, let us assume that the Client request ends with Url as shown below,
+	http://myserver.com/emailApp/showInbox.jsp
+	 
+	http://myserver.com/emailApp/showDeletedItems.jsp
+
+And as such, we have a Controller definition by name ShowController as follows,
+
+ShowController.java
+	public class ShowController{
+	}
+
+Also the Configuration file is made to activate this kind of Handler Mapping by making the following definition,
+	<beans>
+	    <bean id="controllerClassName" class="org.springframework.web.servlet.handler.
+	    metadata.ControllerClassNameHandlerMapping"/>
+	</beans>
+
+The first thing the Framework does it,
+it will traverse through the List of Controllers defined in the Configuration
+File and perform these actions. For the Controller ShowController,
+then Framework will remove the Controller String and then lowercase the 
+first letter. In our case the string now becomes show. 
+Now whatever Client Request matches the pattern /show*, 
+then the ShowController will be invoked.
+
+SimpleUrl HandlerMapping
+------------------------------
+
+This is the Simplest of all the Handler Mappings as it directly maps the Client Request to some Controller object. Consider the following Configuration File,
+	<bean id="simpleUrlMapping"
+	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	 
+	    <property name="mappings">
+	        <props>
+	            <prop key="/showAllMails.jsp">showController</prop>
+	            <prop key="/composeMail.jsp">composeController</prop>
+	            <prop key="/deleteMail.jsp">deleteController</prop>
+	        </props>
+	    </property>
+	 
+	</bean>
+
+The set of mappings is encapsulated in the 'property' tag with each defined in a 'prop' element with the 'key' attribute being the Url, the value being the Identifier of the Controller Objects. Note that the Beans for the above Identifiers should be defined somewhere in the Configuration File.
+- See more at: http://www.javabeat.net/00/0/introduction-to-spring-mvc-web-framework-web-tier/#sthash.KQZsnbDs.dpuf

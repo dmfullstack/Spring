@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="base.definition"
+        template="/WEB-INF/jsp/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/jsp/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/jsp/menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp" />
+    </definition>
+ 
+    <definition name="login" template="/WEB-INF/jsp/Login.jsp" />
+    
+    <definition name="home" extends="base.definition">
+    <put-attribute name="title" value="Home" />
+     <put-attribute name="body" value="" />
+    </definition>
+        
+   
+    <definition name="contact" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/contact.jsp" />
+    </definition>
+    
+     <definition name="documents" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/documents.jsp" />
+    </definition>
+    
+    
+    <definition name="fileuploadform" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/file_upload_form.jsp" />
+    </definition>
+    
+     <definition name="fileuploadsuccess" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/file_upload_success.jsp" />
+    </definition>
+    
+    <definition name="beanNameUrl" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/BeanNameUrlHandlerMapping.jsp" />
+    </definition>
+       <definition name="className" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/ControllerClassNameHandlerMapping.jsp" />
+    </definition>
+    <definition name="simpleUrl" extends="base.definition">
+    <put-attribute name="title" value="ContactManager" />
+     <put-attribute name="body" value="/WEB-INF/jsp/SimpleUrlHandlerMapping.jsp" />
+    </definition>
+    <definition name="ResultForm" extends="base.definition">
+    <put-attribute name="title" value="AbstractWizardFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/ResultForm.jsp" />
+    </definition>
+    <definition name="WelcomePage" extends="base.definition">
+    <put-attribute name="title" value="AbstractWizardFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/WelcomePage.jsp" />
+    </definition>
+    <definition name="userForm1" extends="base.definition">
+    <put-attribute name="title" value="SimpleFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/Registration.jsp" />
+    </definition>
+    <definition name="userSuccess" extends="base.definition">
+    <put-attribute name="title" value="SimpleFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/userSuccess.jsp" />
+    </definition>
+    
+    <definition name="showForm" extends="base.definition">
+    <put-attribute name="title" value="MultiActionController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/MultiActionControllerForm.jsp" />
+    </definition>
+    <definition name="result" extends="base.definition">
+    <put-attribute name="title" value="MultiActionController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/MultiActionControllerSuccess.jsp" />
+    </definition>
+    
+    <definition name="fillForm" extends="base.definition">
+    <put-attribute name="title" value="SimpleFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/fillForm.jsp" />
+    </definition>
+    <definition name="viewForm" extends="base.definition">
+    <put-attribute name="title" value="SimpleFormController" />
+     <put-attribute name="body" value="/WEB-INF/jsp/viewForm.jsp" />
+    </definition>
+    
+    
+    
+    
+ 
+</tiles-definitions>

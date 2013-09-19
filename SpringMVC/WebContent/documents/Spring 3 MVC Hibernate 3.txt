@@ -1,0 +1,86 @@
+#our goal is to create a contact manager application which will allow the user to add a contact or remove it. The basic requirement of the Contact Manager app will be:
+
+    Add new contact in the contact list.
+    Display all contacts from contact list.
+    Delete a contact from contact list.
+    
+#Application Architecture
+
+We will have a layered architecture for our demo application. 
+The database will be accessed by a Data Access layer popularly called as DAO Layer. 
+This layer will use Hibernate API to interact with database. 
+The DAO layer will be invoked by a service layer. 
+In our application we will have a Service interface called ContactService.
+
+Note: see the diagram present in image folder
+
+#Database: Mysql
+
+Table query:
+CREATE TABLE CONTACTS
+(
+    id              INT PRIMARY KEY AUTO_INCREMENT,
+    firstname    VARCHAR(30),
+    lastname    VARCHAR(30),
+    telephone   VARCHAR(15),
+    email         VARCHAR(30),
+    created     TIMESTAMP DEFAULT NOW()
+);
+
+
+    com.helpezee.controller – This package will contain Spring Controller classes for Contact Manager application.
+    com.helpezee.beans – This package will contain form object for Contact manager application. Contact form will be a simple POJO class with different attributes such as firstname, lastname etc.
+    com.helpezee.service – This package will contain code for service layer for our Contact manager application. The service layer will have one ContactService interface and its corresponding implementation class
+    com.helpezee.dao – This is the DAO layer of Contact manager application. It consists of ContactDAO interface and its corresponding implementation class. The DAO layer will use Hibernate API to interact with database.
+
+    
+    Directory of C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\Spring3HibernateMaven\WEB-INF\lib
+
+ antlr-2.7.6.jar
+ aopalliance-1.0.jar
+ asm-1.5.3.jar
+ asm-attrs-1.5.3.jar
+ cglib-2.1_3.jar
+ commons-collections-3.1.jar
+ commons-dbcp-20030825.184428.jar
+ commons-logging-1.1.1.jar
+ commons-pool-20030825.183949.jar
+ dom4j-1.6.1.jar
+ ehcache-1.2.3.jar
+ ejb3-persistence-1.0.2.GA.jar
+ hibernate-3.2.1.ga.jar
+ hibernate-annotations-3.4.0.GA.jar
+ hibernate-commons-annotations-3.3.0.ga.jar
+ hibernate-core-3.3.2.GA.jar
+ hibernate-entitymanager-3.4.0.GA.jar
+ javassist-3.4.GA.jar
+ jstl-1.1.2.jar
+ jta-1.1.jar
+ mysql-connector-java-5.1.10.jar
+ persistence-api-1.0.jar
+ servlet-api-2.5.jar
+ slf4j-api-1.5.8.jar
+ spring-aop-3.0.6.RELEASE.jar
+ spring-asm-3.0.6.RELEASE.jar
+ spring-beans-3.0.6.RELEASE.jar
+ spring-context-3.0.6.RELEASE.jar
+ spring-context-support-3.0.6.RELEASE.jar
+ spring-core-3.0.6.RELEASE.jar
+ spring-expression-3.0.6.RELEASE.jar
+ spring-jdbc-3.0.6.RELEASE.jar
+ spring-orm-3.0.6.RELEASE.jar
+ spring-tx-3.0.6.RELEASE.jar
+ spring-web-3.0.6.RELEASE.jar
+ spring-webmvc-3.0.6.RELEASE.jar
+ standard-1.1.2.jar
+ xml-apis-1.0.b2.jar
+ 
+ 
+ 
+ 1	dom4j - XML parsing www.dom4j.org/
+2	Xalan - XSLT Processor http://xml.apache.org/xalan-j/
+3	Xerces - The Xerces Java Parser http://xml.apache.org/xerces-j/
+4	cglib - Appropriate changes to Java classes at runtime http://cglib.sourceforge.net/
+5	log4j - Logging Faremwork http://logging.apache.org/log4j
+6	Commons - Logging, Email etc. http://jakarta.apache.org/commons
+7	SLF4J - Logging Facade for Java http://www.slf4j.org
