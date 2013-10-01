@@ -18,7 +18,7 @@
 <tr><td><b>Controllers</b></td></tr>
 <tr><td nowrap="nowrap"><a href="#">AbstractController</a></td></tr>
 <tr><td><i>13.3.2. Other simple controllers</i></td></tr>
-<tr><td nowrap="nowrap"><a href="#">ParameterizableViewController </a></td></tr>
+<tr><td nowrap="nowrap"><a href="#">ParameterizableViewController<br/>(just redirects to view) </a></td></tr>
 <tr><td nowrap="nowrap"><a href="#">UrlFilenameViewController </a></td></tr>
 <tr><td><i>13.3.3. The MultiActionController</i></td></tr>
 <tr><td nowrap="nowrap"><a href="show.html">MultiActionController*</a></td></tr>

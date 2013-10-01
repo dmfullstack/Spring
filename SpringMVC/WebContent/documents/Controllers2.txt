@@ -186,3 +186,15 @@ MyCompleteFormController.java
 	        return new ModelAndView("cancelView");
 	    }
 	}
+ParameterizableViewController
+-------------------------------
+
+This controller is use to redirect the page in the Spring Web MVC applications. 
+This controller doesn't  require controller class. 
+This controller provides an alternative to sending a request straight to a view such as a JSP. 
+we will configure just declared the ParameterizableViewController bean and 
+set the view name through the "viewName" property.
+
+	<bean name="/admin/signonForm.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="SignonForm"/>
+	</bean>
