@@ -87,6 +87,14 @@
     <put-attribute name="title" value="SimpleFormController" />
      <put-attribute name="body" value="/WEB-INF/jsp/viewForm.jsp" />
     </definition>
+    <definition name="viewResolverpath" extends="base.definition">
+    <put-attribute name="title" value="ViewResolvers" />
+     <put-attribute name="body" value="/WEB-INF/jsp/ViewResolver.jsp" />
+    </definition>
+      <definition name="formhandle" extends="base.definition">
+    <put-attribute name="title" value="ViewResolvers" />
+     <put-attribute name="body" value="/WEB-INF/jsp/FormHandling.jsp" />
+    </definition>
     
     
     

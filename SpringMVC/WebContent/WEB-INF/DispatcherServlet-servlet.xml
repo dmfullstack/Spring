@@ -37,6 +37,14 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
+    
+    <bean name="viewresolve" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+    <property name="viewName" value="viewResolverpath"/>
+    </bean>
+    
+     <bean name="formHandlingOverview" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+    <property name="viewName" value="formhandle"/>
+    </bean>
    
 
    <!-- ############################Tiles Start############################## -->
@@ -89,12 +97,43 @@
 
 <!-- MultiActionController -->
   <bean id="MultiProcessorController" class="com.helpezee.controller.MultiProcessorController">
-        <property name="methodNameResolver">
+          <property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver"/>
+   		</property>
+<!-- Two ways for routing the request a)InternalPathMethodNameResolver b)PropertiesMethodNameResolver c)ParameterMethodNameResolver 	
+   a)
+		<property name="methodNameResolver">
             <bean class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver">
-<!--            <property name="prefix" value="test" />-->
-<!--	   		<property name="prefix" value="multiaction" />-->
+    				 <property name="prefix" value="test" />
+   		   			 <property name="prefix" value="multiaction" />
 	   		</bean>
-        </property>
+	   		</property>
+	b)   	
+	<property name="methodNameResolver">
+    	<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+     		 <property name="mappings">
+				<props>
+					   <prop key="/customer/a.htm">add</prop>
+					   <prop key="/customer/b.htm">update</prop>
+					   <prop key="/customer/c.htm">delete</prop>
+					   <prop key="/customer/d.htm">list</prop>
+					   <prop key="/customer/whatever.htm">add</prop>
+				</props>
+       		</property>
+     </bean>
+    </property>
+    
+    c)
+    <property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+			   		<property name="paramName" value="action"/>
+			</bean>
+     </property>
+     /customer/*.htm?action=add –> add() method
+	/customer/whatever.htm?action=add –> add() method
+    	
+    -->
+        
     </bean> 
 
 <!-- SimpleURLHandlerMapping -->
@@ -104,6 +143,8 @@
     <value>
     simpleurlhandlermapping.html = processApplicationFormController
     *.html = MultiProcessorController
+    viewresolve.html=viewresolve
+    formhandling.html=formHandlingOverview
     </value>
     </property>
     </bean>
@@ -220,4 +261,7 @@
 http://www.dineshonjava.com/2012/12/spring-3-mvc-tiles-plugin-with-example.html#.Uh7oTH8yKfs
 http://www.javacodegeeks.com/2013/04/spring-mvc-hibernate-maven-crud-operations-example.html
 http://krams915.blogspot.com/2012/01/spring-mvc-31-implement-crud-with_4739.html
+http://www.ntu.edu.sg/home/ehchua/programming/java/J5c_Collection.html
+http://www.journaldev.com/1260/#collection-interface
+
 -->

@@ -33,13 +33,17 @@
 <tr><td nowrap="nowrap"><a href="#">CancellableFormController </a></td></tr>
 <tr><td nowrap="nowrap"><a href="#">ServletForwardingController </a></td></tr>
 <tr><td nowrap="nowrap"><a href="#">ServletWrappingController </a></td></tr>
-
 <tr><td><b>Handler Mappings</b></td></tr>
 <tr><td nowrap="nowrap"><a href="beanNamehandlermapping.html">BeanNameUrlHandlerMapping(Default)</a></td></tr>
 <tr><td nowrap="nowrap"><a href="ControllerClassNameHandlerMapping.html">ControllerClassNameHandlerMapping </a></td></tr>
 <tr><td nowrap="nowrap"><a href="simpleurlhandlermapping.html">SimpleUrlHandlerMapping*</a></td></tr>
 <!--<tr><td nowrap="nowrap"><a href="handlermapping.html">CommonsPathMapHandlerMapping </a></td></tr>-->
-
+<tr><td><b>View Resolvers</b></td></tr>
+<tr><td nowrap="nowrap"><a href="viewresolve.html">InternalResourceViewResolver(Default)*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="viewresolve.html">XmlViewResolver* </a></td></tr>
+<tr><td nowrap="nowrap"><a href="viewresolve.html">ResourceBundleViewResolver*</a></td></tr>
+<tr><td><b>Form Handling</b></td></tr>
+<tr><td nowrap="nowrap"><a href="formhandling.html">Form Handling Overview*</a></td></tr>
 </table>
 </td>
 </tr>

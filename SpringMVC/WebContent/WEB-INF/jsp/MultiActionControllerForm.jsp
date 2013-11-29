@@ -13,9 +13,55 @@
         <li><a href="listAll.html">ListALL</a>
         </li>
     </ul>
-<!--    <pre>Don't click again on the menu link as it will append the multiaction in the url.-->
-<!--    As i am using many configuration i have left as it is.will address this problem latter</pre>-->
-<!--    -->
+<pre>
+Three ways for routing the request a)InternalPathMethodNameResolver b)PropertiesMethodNameResolver c)ParameterMethodNameResolver 	
+
+ &lt;bean id="MultiProcessorController" class="com.helpezee.controller.MultiProcessorController"&gt;
+          &lt;property name="methodNameResolver"&gt;
+            &lt;bean class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver"/&gt;
+   		&lt;/property&gt;
+   		
+   a)<b>InternalPathMethodNameResolver</b>
+   
+		&lt;property name="methodNameResolver"&gt;
+            &lt;bean class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver"&gt;
+    			&lt;property name="prefix" value="test" /&gt;
+   		   		&lt;property name="prefix" value="multiaction" /&gt;
+	   		&lt;/bean&gt;
+	   		&lt;/property&gt;
+	   		
+	b) <b>PropertiesMethodNameResolver</b>  	
+	
+	&lt;property name="methodNameResolver"&gt;
+    	&lt;bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver"&gt;
+     		 &lt;property name="mappings"&gt;
+				&lt;props&gt;
+				  &lt;prop key="/customer/a.htm"&gt;add&lt;/prop&gt;
+				  &lt;prop key="/customer/b.htm"&gt;update&lt;/prop&gt;
+				  &lt;prop key="/customer/c.htm"&gt;delete&lt;/prop&gt;
+				  &lt;prop key="/customer/d.htm"&gt;list&lt;/prop&gt;
+				  &lt;prop key="/customer/whatever.htm"&gt;add&lt;/prop&gt;
+				&lt;/props&gt;
+       		&lt;/property&gt;
+     &lt;/bean&gt;
+    &lt;/property&gt;
+    
+    c) <b>ParameterMethodNameResolver</b>
+    
+    &lt;property name="methodNameResolver"&gt;
+			&lt;bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver"&gt;
+			   &lt;property name="paramName" value="action"/&gt;
+			&lt;/bean&gt;
+     &lt;/property&gt;
+     /customer/*.htm?action=add --&gt; add() method
+	 /customer/whatever.htm?action=add --&gt; add() method
+    	
+    
+        
+    &lt;/bean&gt; 
+
+
+</pre>
      
     
 </body>
