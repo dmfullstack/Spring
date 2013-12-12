@@ -14,7 +14,7 @@
     </tr>
     <tr>
         <td height="350" width="20%" valign="top"><tiles:insertAttribute name="menu" /></td>
-        <td width="80%"><tiles:insertAttribute name="body" /></td>
+        <td width="80%" valign="top"><tiles:insertAttribute name="body" /></td>
     </tr>
     <tr>
         <td height="50" colspan="2"><tiles:insertAttribute name="footer" />

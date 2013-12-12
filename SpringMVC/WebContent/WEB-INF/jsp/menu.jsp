@@ -5,14 +5,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Spring showcase</title>
+<title>Spring Show Case</title>
 </head>
 <body>
 <table>
 <tr>
 <td valign="top">
 <table >
-<tr><td nowrap="nowrap"><a href="index.html">Spring3-Hibernate3 Example*</a></td></tr>
+<tr><td><b>Core Concepts</b></td></tr>
+<tr><td nowrap="nowrap"><a href="beancreation.html">Bean Creation using factory method*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="wiringCollections.html">Wiring Collections(LIST/SET/MAP/PROPS)*</a></td></tr>
+<tr><td><b>Misc</b></td></tr>
+<tr><td nowrap="nowrap"><a href="index.html">Spring3-Hibernate3 Example(with validation)*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="uploadfile.html">Fileupload and View*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="multifileshow.html">Multi Fileupload*</a></td></tr>
 <tr><td><b>Controllers</b></td></tr>

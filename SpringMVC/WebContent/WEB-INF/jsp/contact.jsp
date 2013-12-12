@@ -13,16 +13,17 @@
  
     <table>
     <tr>
+ 
         <td><form:label path="firstname"><spring:message code="label.firstname"/></form:label></td>
-        <td><form:input path="firstname" /></td>
+        <td><form:input path="firstname" /><font color='red'><form:errors path='firstname' /></font></td>
     </tr>
     <tr>
         <td><form:label path="lastname"><spring:message code="label.lastname"/></form:label></td>
-        <td><form:input path="lastname" /></td>
+        <td><form:input path="lastname" /><font color='red'><form:errors path='lastname' /></font></td>
     </tr>
     <tr>
         <td><form:label path="email"><spring:message code="label.email"/></form:label></td>
-        <td><form:input path="email" /></td>
+        <td><form:input path="email" /><font color='red'><form:errors path='email' /></font></td>
     </tr>
     <tr>
         <td><form:label path="telephone"><spring:message code="label.telephone"/></form:label></td>

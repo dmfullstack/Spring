@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,14 +17,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.helpezee.beans.Contact;
 import com.helpezee.service.ContactService;
+import com.helpezee.validators.ContactValidator;
  
 @Controller
+
 public class ContactController {
 	
 	
  
     @Autowired
     private ContactService contactService;
+    
+    @Autowired
+    @Qualifier("contactValidator")
+    private ContactValidator contactValidator;
     
 
     @RequestMapping("/index")
@@ -35,19 +42,30 @@ public class ContactController {
  
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView addContact(@ModelAttribute("contact")Contact contact, BindingResult result,ModelMap map) {
-    		contactService.addContact(contact);
-	        map.put("contact", new Contact());
-		    map.put("contactList", contactService.listContact());	
-        return new ModelAndView("contact");
+    		
+    		contactValidator.validate(contact, result);
+    		if (result.hasErrors()) {
+    			//map.put("contact", new Contact());
+			    map.put("contactList", contactService.listContact());	
+    			return new ModelAndView("contact");
+    			
+    			} else {
+    				contactService.addContact(contact);
+    		        //map.put("contact", new Contact());
+    			    map.put("contactList", contactService.listContact());	
+    	        return new ModelAndView("contact");
+    			}
+    		
     }
  
     @RequestMapping("/delete")
     public ModelAndView deleteContact(@RequestParam("contactId")Integer contactId,ModelMap map) {
- 
-         contactService.removeContact(contactId);
-         map.put("contact", new Contact());
-	     map.put("contactList", contactService.listContact());	
-        //return new ModelAndView("contact");
-	    return new ModelAndView("contact");
+    				contactService.removeContact(contactId);
+	         map.put("contact", new Contact());
+		     map.put("contactList", contactService.listContact());	
+	        //return new ModelAndView("contact");
+		    return new ModelAndView("contact");
+		
+         
     }
 }

@@ -9,7 +9,8 @@
     xmlns:lang="http://www.springframework.org/schema/lang"
     xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:util="http://www.springframework.org/schema/util"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
  	http://www.springframework.org/schema/context
  	http://www.springframework.org/schema/context/spring-context-3.0.xsd
@@ -38,13 +39,17 @@
         <property name="suffix" value=".jsp" />
     </bean>
     
-    <bean name="viewresolve" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+    <bean name="viewresolve" class="org.springframework.web.servlet.mvc.ParameterizableViewController" >
     <property name="viewName" value="viewResolverpath"/>
     </bean>
     
      <bean name="formHandlingOverview" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
     <property name="viewName" value="formhandle"/>
     </bean>
+    
+	    <bean name="beancreation" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+	    <property name="viewName" value="beanusingfactorymethod"/>
+	    </bean>
    
 
    <!-- ############################Tiles Start############################## -->
@@ -145,6 +150,8 @@
     *.html = MultiProcessorController
     viewresolve.html=viewresolve
     formhandling.html=formHandlingOverview
+    beancreation.html=beancreation
+    wiringCollections.html=collectionController
     </value>
     </property>
     </bean>
@@ -255,6 +262,58 @@
   </bean>
 </mvc:interceptors>
 
+
+<bean id="collectionController" class="com.helpezee.controller.CollectionController">
+<property name="collectionsPojo"  ref="coll" />
+</bean>
+
+<bean id="coll" class="com.helpezee.beans.CollectionsClass">
+<property name="enrolledCourses">
+<list>
+<value>satya</value>
+<value>Suyog</value>
+<value>Tabrez</value>
+</list>
+</property>
+<property name="enrolledActivities">
+<set>
+<value>Tennis</value>  
+<value>Music</value>  
+<value>Photography</value> 
+</set>
+</property>
+<property name="studentInfoMap">
+<map>  
+<entry key="name" value="John"/>  
+<entry key="address" value="Orange County , CA"/>  
+<entry key="phone" value="808-999-9999"/>  
+</map>  
+</property>
+<property name="emailProps">
+<props>  
+<prop key="admin">admin@springaddon.com</prop>  
+<prop key="support">support@springaddon.com</prop>  
+</props>  
+</property>
+<property name="objectList">
+<list>
+<ref bean="book"/>
+<ref bean="book1"/>
+</list>
+</property>
+</bean>
+
+<bean id="book" class="com.helpezee.beans.Book">
+        <property name="author" value="Olivier Sips" />
+        <property name="year" value="2012" />
+</bean>
+<bean id="book1" class="com.helpezee.beans.Book2">
+        <property name="author" value="Sips" />
+        <property name="year" value="2013" />
+</bean>
+
+<!--  Validators -->
+<bean id="contactValidator" class="com.helpezee.validators.ContactValidator" />
 
 </beans>
 <!-- http://viralpatel.net/blogs/spring-3-mvc-internationalization-i18n-localization-tutorial-example/ 

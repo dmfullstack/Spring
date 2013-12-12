@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:lang="http://www.springframework.org/schema/lang"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ 	http://www.springframework.org/schema/context
+ 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+ 	http://www.springframework.org/schema/mvc
+ 	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+ 	http://www.springframework.org/schema/aop 
+ 	http://www.springframework.org/schema/aop/spring-aop.xsd
+ 	http://www.springframework.org/schema/jee 
+ 	http://www.springframework.org/schema/jee/spring-jee.xsd
+	http://www.springframework.org/schema/lang 
+	http://www.springframework.org/schema/lang/spring-lang.xsd
+ 	http://www.springframework.org/schema/tx 
+ 	http://www.springframework.org/schema/tx/spring-tx.xsd
+ 	http://www.springframework.org/schema/util 
+ 	http://www.springframework.org/schema/util/spring-util.xsd">
+
+ 
+ 
+
+<!-- Bean Creation using Factory Method,not by the container -->
+<bean id="factoryMadeSingerBean" class="com.helpezee.beancreationusingFactoryMethod.SingerFactory"
+    factory-method="createSinger" >
+    <constructor-arg  value="Wake Me Up When September Ends" />
+</bean>
+
+<bean id="musician" class="com.helpezee.beancreationusingFactoryMethod.MusianFactory"/>
+
+<bean id="duplicateBean" factory-bean="musician" factory-method="createDuplicate" >
+    <constructor-arg value = "musician3"/>
+</bean>
+
+</beans>
+
+<!-- http://viralpatel.net/blogs/spring-3-mvc-internationalization-i18n-localization-tutorial-example/ 
+http://www.dineshonjava.com/2012/12/spring-3-mvc-tiles-plugin-with-example.html#.Uh7oTH8yKfs
+http://www.javacodegeeks.com/2013/04/spring-mvc-hibernate-maven-crud-operations-example.html
+http://krams915.blogspot.com/2012/01/spring-mvc-31-implement-crud-with_4739.html
+http://www.ntu.edu.sg/home/ehchua/programming/java/J5c_Collection.html
+http://www.journaldev.com/1260/#collection-interface
+
+-->

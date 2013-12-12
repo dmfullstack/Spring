@@ -91,11 +91,20 @@
     <put-attribute name="title" value="ViewResolvers" />
      <put-attribute name="body" value="/WEB-INF/jsp/ViewResolver.jsp" />
     </definition>
-      <definition name="formhandle" extends="base.definition">
+     <definition name="formhandle" extends="base.definition">
     <put-attribute name="title" value="ViewResolvers" />
      <put-attribute name="body" value="/WEB-INF/jsp/FormHandling.jsp" />
     </definition>
     
+    <definition name="beanusingfactorymethod" extends="base.definition">
+    <put-attribute name="title" value="Bean Creation" />
+     <put-attribute name="body" value="/WEB-INF/jsp/BeanCreation.jsp" />
+    </definition>
+    
+      <definition name="CollectionWiring" extends="base.definition">
+    <put-attribute name="title" value="Coolections wiring" />
+     <put-attribute name="body" value="/WEB-INF/jsp/CollectionWiring.jsp" />
+    </definition>
     
     
     

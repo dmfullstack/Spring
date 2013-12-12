@@ -14,6 +14,8 @@ public class SpringDemo {
 	ApplicationContext context= new ClassPathXmlApplicationContext("spring.xml");
 	//SpringDaoImpl jdbc=(SpringDaoImpl)context.getBean("springDaoImpl");
 	SimpleJdbcDaoSuportClass jdbc=(SimpleJdbcDaoSuportClass)context.getBean("simplejdbcdaosupportclass");
+	Circle circle= new Circle();
+	jdbc.insertCircle(circle);
 	/*Circle circle=jdbc.getCircle(1);
 	System.out.println("id----"+circle.getId());
 	System.out.println("name---"+circle.getName());*/
@@ -32,7 +34,7 @@ public class SpringDemo {
 	
 	//jdbc.createTriangle();
 	
-	jdbc.insertCircle(new Circle(8,"eigth circle"));
+	//jdbc.insertCircle(new Circle(8,"eigth circle"));
 
 	
 	

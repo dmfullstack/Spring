@@ -33,6 +33,7 @@ As an example, with JSP as a view technology, you can use the UrlBasedViewResolv
     &lt;property name="suffix" value=".jsp"/&gt;
 &lt;/bean&gt;
 
+
 When returning test as a viewname, this view resolver forwards the request to the RequestDispatcher that will send the request to /WEB-INF/jsp/test.jsp.
 
 When you combine different view technologies in a web application, you can use the ResourceBundleViewResolver:
@@ -43,11 +44,37 @@ When you combine different view technologies in a web application, you can use t
     &lt;property name="defaultParentView" value="parentView"/&gt;
 &lt;/bean&gt;
 
+or
+
+&lt;bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver"&gt;
+		&lt;property name="basename" value="spring-views" /&gt;
+	&lt;/bean&gt;
+	
+	File : spring-views.properties
+
+	WelcomePage.(class)=org.springframework.web.servlet.view.JstlView
+	WelcomePage.url=/WEB-INF/pages/WelcomePage.jsp
+
 &lt;bean class="org.springframework.web.servlet.view.XmlViewResolver"&gt;
 	   &lt;property name="location"&gt;
 		&lt;value&gt;/WEB-INF/spring-views.xml&lt;/value&gt;
 	   &lt;/property&gt;
 &lt;/bean&gt;
+
+File : spring-views.xml
+
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"&gt;
+ 
+	&lt;bean id="WelcomePage"
+		class="org.springframework.web.servlet.view.JstlView"&gt;
+		&lt;property name="url" value="/WEB-INF/pages/WelcomePage.jsp" /&gt;
+	&lt;/bean&gt;
+ 
+&lt;/beans>
+
 
 &lt;bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;
   &lt;property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/&gt;

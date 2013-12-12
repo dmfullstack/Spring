@@ -10,9 +10,12 @@
 <context:component-scan base-package="com.helpezee.dao"/>
 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"><!-- org.springframework.jdbc.datasource.DriverManagerDataSource -->
 <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-<property name="url" value="jdbc:mysql://localhost:3306/loglocal"/>
-<property name="username" value="root"/>
-<property name="password" value="techm"/>
+<!--<property name="url" value="jdbc:mysql://localhost:3306/loglocal"/>-->
+<!--<property name="username" value="root"/>-->
+<!--<property name="password" value="techm"/>-->
+<property name="url" value="jdbc:mysql://mysql00dev.dev.cbeyond.net:3316/csiadev"/>
+<property name="username" value="csiadevadmin"/>
+<property name="password" value="csiadevadm1n"/>
 <property name="initialSize" value="2"/>
 <property name="maxActive" value="5"/>
 </bean>
