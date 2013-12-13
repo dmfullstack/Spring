@@ -106,6 +106,10 @@
      <put-attribute name="body" value="/WEB-INF/jsp/CollectionWiring.jsp" />
     </definition>
     
+    <definition name="wireusingSpEl" extends="base.definition">
+    <put-attribute name="title" value="wiring Using SpEL" />
+     <put-attribute name="body" value="/WEB-INF/jsp/WiringUsingSpEL.jsp" />
+    </definition>
     
     
  

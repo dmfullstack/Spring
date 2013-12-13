@@ -15,6 +15,8 @@
 <tr><td><b>Core Concepts</b></td></tr>
 <tr><td nowrap="nowrap"><a href="beancreation.html">Bean Creation using factory method*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="wiringCollections.html">Wiring Collections(LIST/SET/MAP/PROPS)*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="wiringSPEL.html">Wiring with SpEL/Working with Types*</a></td></tr>
+
 <tr><td><b>Misc</b></td></tr>
 <tr><td nowrap="nowrap"><a href="index.html">Spring3-Hibernate3 Example(with validation)*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="uploadfile.html">Fileupload and View*</a></td></tr>

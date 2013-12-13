@@ -26,9 +26,16 @@ Three ways for routing the request a)InternalPathMethodNameResolver b)Properties
 		&lt;property name="methodNameResolver"&gt;
             &lt;bean class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver"&gt;
     			&lt;property name="prefix" value="test" /&gt;
-   		   		&lt;property name="prefix" value="multiaction" /&gt;
+   		   		&lt;property name="prefix" value="Customer" /&gt;
 	   		&lt;/bean&gt;
 	   		&lt;/property&gt;
+	   		
+	   		
+	    add.htm - testaddCustomer()
+    	delete.htm - testdeleteCustomer()
+    	update.htm - testupdateCustomer()
+    	list.htm - testlistCustomer()		
+	   		
 	   		
 	b) <b>PropertiesMethodNameResolver</b>  	
 	
@@ -46,6 +53,12 @@ Three ways for routing the request a)InternalPathMethodNameResolver b)Properties
      &lt;/bean&gt;
     &lt;/property&gt;
     
+     a.htm - add() method
+     b.htm - update() method
+     c.htm - delete() method
+     d.htm - list() method
+     whatever.htm - add() method
+    
     c) <b>ParameterMethodNameResolver</b>
     
     &lt;property name="methodNameResolver"&gt;
@@ -53,8 +66,13 @@ Three ways for routing the request a)InternalPathMethodNameResolver b)Properties
 			   &lt;property name="paramName" value="action"/&gt;
 			&lt;/bean&gt;
      &lt;/property&gt;
-     /customer/*.htm?action=add --&gt; add() method
-	 /customer/whatever.htm?action=add --&gt; add() method
+     
+     
+     *.htm?action=add - add() method
+     whatever.htm?action=add - add() method
+     *.htm?action=update - update() method
+     *.htm?action=delete - delete() method
+     *.htm?action=list - list() method
     	
     
         

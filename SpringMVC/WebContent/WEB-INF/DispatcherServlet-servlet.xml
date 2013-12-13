@@ -152,6 +152,7 @@
     formhandling.html=formHandlingOverview
     beancreation.html=beancreation
     wiringCollections.html=collectionController
+    wiringSPEL.html = wireusingspEl
     </value>
     </property>
     </bean>
@@ -314,6 +315,93 @@
 
 <!--  Validators -->
 <bean id="contactValidator" class="com.helpezee.validators.ContactValidator" />
+
+<!-- Wiring using SPEL -->
+
+<bean id="wireusingspEl" class="com.helpezee.controller.WiringSPELController">
+<property name="products" ref="product" />
+</bean>
+
+<bean id="product" class="com.helpezee.beans.Product">
+<property name="parts">
+<list >
+<value>#{part1.name}</value><!-- Passing the value of other bean names part1 -->
+<value>#{part2.name}</value><!-- Passing the value of other bean names part2 -->
+<value>#{part3.name}</value><!-- Passing the value of other bean names part3 -->
+<value>#{5}</value> <!-- Passing the value of integer 5 -->
+<value>This is good Concepts #{20}</value><!-- Passing the value of integer  and String also -->
+<value>#{55.55}</value><!-- Passing the value of double -->
+<value>#{'test message'}</value> <!-- Passing the value of text or characters or strings -->
+<value>#{part1.testMethod()}</value><!-- Passing the return value of the  method : testMethod of Part1 bean as value of Product Bean-->
+<value>#{part1.testMethod()?.toUpperCase()}</value> <!--  ?. is for Null check, Checking whether the  return value is null or not and then applying the String functions -->
+<value>#{T(java.lang.Math).PI}</value><!-- Wiring with types -->
+<value>#{T(java.lang.Math).random()}</value><!-- Static Method can also be invoked on the result of the T() operator -->
+<value>#{22+22+1}</value><!-- Arthematic Addition -->
+<value>#{2 * T(java.lang.Math).PI}</value><!-- Arthematic multiplication -->
+<value>#{2 - T(java.lang.Math).PI}</value><!-- Arthematic substraction -->
+<value>#{2 / T(java.lang.Math).PI}</value><!-- Arthematic Division -->
+<value>#{2 % T(java.lang.Math).PI}</value><!-- Arthematic % -->
+<value>#{2 * 2^2}</value><!-- Arthematic power of -->
+<value>#{100 == 100}</value> <!-- comparing values where first value can be like counter.value getting value from some other bean  -->
+<value>#{100 le 200}</value>
+<value>#{part1.testMethod()!= null? true:false}</value><!-- ConditionalOperator -->
+<value>#{part1.name matches '[a-zA-Z]'}</value><!-- We use Regular expression to validate the field -->
+</list>
+</property>
+<property name="thirdStudentInList" value="#{studentList[2]}" /><!-- which returns the 3rd student in the list -->
+<property name="failedStudents" value="#{studentList.?[marks lt 40]}" /><!-- .?[] for filtering knows as selection operator  which creates new collection ,a list of all students with marks less than 40 -->
+<property name="studentNames" value="#{studentList.![name]}" /><!-- a projection of list of names of all students -->
+</bean>
+<bean id="part1" class="com.helpezee.beans.Part">
+<property name="name" value="SATAYA 1"/>
+</bean>
+<bean id="part2" class="com.helpezee.beans.Part">
+<property name="name" value="SSSSSSSS 2"/>
+</bean>
+<bean id="part3" class="com.helpezee.beans.Part">
+<property name="name" value="EEEEE 3"/>
+</bean>
+<bean id="student1"
+        class="com.helpezee.beans.Student">
+        <property name="name" value="Zorro" />
+        <property name="marks" value="70" />
+    </bean>
+ 
+    <bean id="student2"
+        class="com.helpezee.beans.Student">
+        <property name="name" value="Bach" />
+        <property name="marks" value="50" />
+    </bean>
+ 
+    <bean id="student3"
+        class="com.helpezee.beans.Student">
+        <property name="name" value="Cindy" />
+        <property name="marks" value="30" />
+    </bean>
+ 
+    <bean id="student4"
+        class="com.helpezee.beans.Student">
+        <property name="name" value="Alba" />
+        <property name="marks" value="80" />
+    </bean>
+ 
+    <bean id="student5"
+        class="com.helpezee.beans.Student">
+        <property name="name" value="Danny" />
+        <property name="marks" value="20" />
+    </bean>
+ 
+    <bean id="studentList" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="student1" />
+                <ref bean="student2" />
+                <ref bean="student3" />
+                <ref bean="student4" />
+                <ref bean="student5" />
+            </list>
+        </constructor-arg>
+    </bean>
 
 </beans>
 <!-- http://viralpatel.net/blogs/spring-3-mvc-internationalization-i18n-localization-tutorial-example/ 
