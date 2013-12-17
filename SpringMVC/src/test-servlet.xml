@@ -42,6 +42,10 @@
     <constructor-arg value = "musician3"/>
 </bean>
 
+
+<bean id="party1" class="com.helpezee.beans.Organization" />
+<bean id="party2" class="com.helpezee.beans.Person" />        
+
 </beans>
 
 <!-- http://viralpatel.net/blogs/spring-3-mvc-internationalization-i18n-localization-tutorial-example/ 

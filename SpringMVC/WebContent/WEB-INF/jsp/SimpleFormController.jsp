@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Registration Page</title>
+<link  rel="stylesheet" style="text/css"  href="./css/style.css">
 </head>
 <body>
 
@@ -52,6 +53,59 @@
     <tr>
         <td colspan="2"><input type="submit"></td>
     </tr>
+    <tr><td colspan="2">
+    <pre>
+    
+   <span class="headline"> Controller Example</span>
+    
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+
+import com.vaannila.domain.User;
+import com.vaannila.service.UserService;
+
+@SuppressWarnings("deprecation")
+public class UserController extends SimpleFormController {
+
+	private UserService userService;
+
+	<span class="backgroundyellow">public UserController()	{
+		setCommandClass(User.class);
+		setCommandName("user");
+	}</span>
+	
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	@Override
+	<span class="backgroundyellow">protected ModelAndView onSubmit(Object command) throws Exception {</span>
+	
+	or 
+	
+      <span class="backgroundyellow">protected ModelAndView onSubmit(HttpServletRequest request,HttpServletResponse response,Object command,BindException errors)
+	{
+	</span>
+	
+		User user = (User) command;
+		userService.add(user);
+		return new ModelAndView("userSuccess","user",user);
+	}
+	
+}
+
+<b>Bean Entry</b>
+
+&lt;bean id="userService" class="com.helpezee.dao.UserServiceImpl" /&gt;
+&lt;bean  class="com.helpezee.controller.SimpleHandlerController" &gt;
+&lt;property name="userService" ref="userService"/&gt;
+<span class="backgroundyellow">&lt;property name="formView" value="userForm1"/&gt;
+&lt;property name="successView" value="userSuccess"/&gt;</span>
+&lt;/bean&gt;
+
+    </pre>
+    
+    </td></tr>
 </table>
 </form:form>
 

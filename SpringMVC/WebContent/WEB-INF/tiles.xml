@@ -63,7 +63,7 @@
     </definition>
     <definition name="userForm1" extends="base.definition">
     <put-attribute name="title" value="SimpleFormController" />
-     <put-attribute name="body" value="/WEB-INF/jsp/Registration.jsp" />
+     <put-attribute name="body" value="/WEB-INF/jsp/SimpleFormController.jsp" />
     </definition>
     <definition name="userSuccess" extends="base.definition">
     <put-attribute name="title" value="SimpleFormController" />
@@ -111,6 +111,45 @@
      <put-attribute name="body" value="/WEB-INF/jsp/WiringUsingSpEL.jsp" />
     </definition>
     
+    <definition name="AutowiringView" extends="base.definition">
+    <put-attribute name="title" value="Autowiring" />
+     <put-attribute name="body" value="/WEB-INF/jsp/Autowiring.jsp" />
+    </definition>
     
+    <definition name="AnnotationAutowiringControlView" extends="base.definition">
+    <put-attribute name="title" value="AnnotationAutowiring" />
+    <put-attribute name="body" value="/WEB-INF/jsp/AnnotationAutowiring.jsp" />
+    </definition>
+    
+     <definition name="FilterAutoScanningControlView" extends="base.definition">
+    <put-attribute name="title" value="FilterAutoScanning" />
+    <put-attribute name="body" value="/WEB-INF/jsp/FilterAutoScanning.jsp" />
+    </definition><!--
+    
+    <definition name="EmployeeRegistration" extends="base.definition">
+    <put-attribute name="title" value="AbstractController" />
+    <put-attribute name="body" value="/WEB-INF/jsp/EmployeeRegistration.jsp" />
+    </definition>-->
+    
+    <definition name="AbstractController12" extends="base.definition">
+    <put-attribute name="title" value="AbstractController" />
+    <put-attribute name="body" value="/WEB-INF/jsp/AbstractController.jsp" />
+    </definition>
+    
+    <definition name="ParameterizableView123" extends="base.definition">
+    <put-attribute name="title" value="ParameterizableViewController" />
+    <put-attribute name="body" value="/WEB-INF/jsp/ParameterizableViewController.jsp" />
+    </definition>
  
+  <definition name="urlfilenameController123" extends="base.definition">
+    <put-attribute name="title" value="ParameterizableViewController" />
+    <put-attribute name="body" value="/WEB-INF/jsp/UrlFileNameViewController.jsp" />
+    </definition>
+ 
+    <definition name="absCommandCon" extends="base.definition">
+    <put-attribute name="title" value="AbstractCommandController" />
+    <put-attribute name="body" value="/WEB-INF/jsp/AbstractCommandController.jsp" />
+	</definition>
+ 
+
 </tiles-definitions>

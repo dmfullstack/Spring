@@ -1,37 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
      <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Spring Show Case</title>
 </head>
 <body>
-<table>
+<table >
 <tr>
 <td valign="top">
-<table >
+<table border="1">
 <tr><td><b>Core Concepts</b></td></tr>
 <tr><td nowrap="nowrap"><a href="beancreation.html">Bean Creation using factory method*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="wiringCollections.html">Wiring Collections(LIST/SET/MAP/PROPS)*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="wiringSPEL.html">Wiring with SpEL/Working with Types*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="autowire.html">Spring Auto-Wiring Beans(XML)*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="annotationautowire.html">Spring Auto-Wiring Beans(Annotations)*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="filtercompautoscan.html">Filter components in auto scanning*</a></td></tr>
+
+
 
 <tr><td><b>Misc</b></td></tr>
 <tr><td nowrap="nowrap"><a href="index.html">Spring3-Hibernate3 Example(with validation)*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="uploadfile.html">Fileupload and View*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="multifileshow.html">Multi Fileupload*</a></td></tr>
 <tr><td><b>Controllers</b></td></tr>
-<tr><td nowrap="nowrap"><a href="#">AbstractController</a></td></tr>
+<tr><td nowrap="nowrap"><a href="abstractcontroller.html">AbstractController*</a></td></tr>
 <tr><td><i>13.3.2. Other simple controllers</i></td></tr>
-<tr><td nowrap="nowrap"><a href="#">ParameterizableViewController<br/>(just redirects to view) </a></td></tr>
-<tr><td nowrap="nowrap"><a href="#">UrlFilenameViewController </a></td></tr>
+<tr><td nowrap="nowrap"><a href="parameterizableviewController.html">ParameterizableViewController*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="urlFileNameViewController.html">UrlFilenameViewController* </a></td></tr>
 <tr><td><i>13.3.3. The MultiActionController</i></td></tr>
 <tr><td nowrap="nowrap"><a href="show.html">MultiActionController*</a></td></tr>
 <tr><td><i>Command controllers</i></td></tr>
-<tr><td nowrap="nowrap"><a href="user.html">AbstractWizardFormController*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="simplehandler.html">SimpleFormController*</a></td></tr>
-<tr><td nowrap="nowrap"><a href="#">AbstractCommandController </a></td></tr>
+<tr><td nowrap="nowrap"><a href="commandAbstractController.html">AbstractCommandController*</a></td></tr>
+<tr><td nowrap="nowrap"><a href="user.html">AbstractWizardFormController*</a></td></tr>
 <tr><td nowrap="nowrap"><a href="#">AbstractFormController </a></td></tr>
 <tr><td><i>Others controllers</i></td></tr>
 <tr><td nowrap="nowrap"><a href="#">AbstractUrlViewController </a></td></tr>
