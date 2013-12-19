@@ -13,7 +13,7 @@ public class SpringWSEndPoint extends ServletEndpointSupport implements ISpringW
 		this.springWS = springWS;
 	}
 
-	public void onInit() {
+	protected void onInit() {
 		this.springWS = (ISpringWS) getWebApplicationContext().getBean("springWS");
 	}
 

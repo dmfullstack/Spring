@@ -9,6 +9,8 @@
     xmlns:lang="http://www.springframework.org/schema/lang"
     xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
     xsi:schemaLocation="
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -25,9 +27,13 @@
  	http://www.springframework.org/schema/tx 
  	http://www.springframework.org/schema/tx/spring-tx.xsd
  	http://www.springframework.org/schema/util 
- 	http://www.springframework.org/schema/util/spring-util.xsd">
+ 	http://www.springframework.org/schema/util/spring-util.xsd
+ 	http://cxf.apache.org/jaxrs
+	http://cxf.apache.org/schemas/jaxrs.xsd
+	http://cxf.apache.org/jaxws
+	http://cxf.apache.org/schemas/jaxws.xsd">
  	
- 	<context:component-scan  base-package="com.helpezee.controller,com.helpezee.beans,com.helpezee.service,com.helpezee.dao,com.helpezee.validators" />
+ 	<context:component-scan  base-package="com.helpezee.controller,com.helpezee.beans,com.helpezee.service,com.helpezee.dao,com.helpezee.validators,com.helpezee.ws.apachecxf" />
  	<context:annotation-config />
  	 <tx:annotation-driven />
     
@@ -442,37 +448,31 @@
         </constructor-arg>
     </bean>
    
-   <!-- Spring Webservices using Axis -->
+   <!-- Spring Webservices using Apache Axis -->
    
-<bean id="springWSEndpoint" class="com.helpezee.ws.service.SpringWSEndPoint"></bean>
+<!--<bean id="springWSEndpoint" class="com.helpezee.ws.service.SpringWSEndPoint"></bean>-->
 <bean id="springWS" class="com.helpezee.ws.service.SpringWS"></bean>
+<!-- Axis Ends -->
 
-<!--  will be used in Client 
-<bean id="jaxRpcProxy" class="org.springframework.remoting.jaxrpc.JaxRpcPortProxyFactoryBean">
-  <property name="serviceFactoryClass">
-    <value>org.apache.axis.client.ServiceFactory</value>
-  </property>
-  <property name="wsdlDocumentUrl">
-    <value>http://localhost:8000/SpringMVC/services/SpringWS?wsdl</value>
-  </property>
-  <property name="namespaceUri">
-    <value>http://localhost:8000/SpringMVC/services/SpringWS</value>
-  </property>
-  <property name="serviceName">
-    <value>SpringWSEndPointService</value>
-  </property>
-  <property name="portName">
-    <value>SpringWS</value>
-  </property>
-  <property name="serviceInterface">
-    <value>com.helpezee.ws.service.ISpringWS</value>
-  </property>
-   </bean>
-  
-   <bean id="springWSClient" class="client.SpringWSClient">
- <property name="springWS" ref="jaxRpcProxy" />
-</bean>
- -->
+<!-- Spring web service using apche CXF -->
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<jaxws:endpoint
+	  id="bookShelfService"
+	  implementor="com.helpezee.ws.apachecxf.BookService"
+	  address="/bookshelfservice" />
+
+    <bean id="bookserviceclass" class="com.helpezee.ws.apachecxf.BookService"/>
+
+    <jaxrs:server id="bookservice" address="/bookservice">
+        <jaxrs:serviceBeans>
+        <ref bean="bookserviceclass" />
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
+ <!-- CXF Ends -->
 </beans>
 <!-- http://viralpatel.net/blogs/spring-3-mvc-internationalization-i18n-localization-tutorial-example/ 
 http://www.dineshonjava.com/2012/12/spring-3-mvc-tiles-plugin-with-example.html#.Uh7oTH8yKfs
