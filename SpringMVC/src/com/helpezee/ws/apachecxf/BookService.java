@@ -1,5 +1,6 @@
 package com.helpezee.ws.apachecxf;
 
+import javax.jws.WebMethod;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -27,6 +28,7 @@ protected final Logger log = LoggerFactory.getLogger(BookService.class);
     @Path("/getbook/{name}")
     @Produces({"application/xml","application/json"})
     @Consumes({"application/xml","application/json","application/x-www-form-urlencoded"})
+    @WebMethod
     public Response getBucket(@PathParam("name") String name) {
         log.debug("name : " + name);
         BookVO bookVO = null;
@@ -47,6 +49,7 @@ protected final Logger log = LoggerFactory.getLogger(BookService.class);
     @Path("/addbook")
     @Produces({"application/xml","application/json"})
     @Consumes({"application/xml","application/json","application/x-www-form-urlencoded"})
+    @WebMethod
     public Response addBook(@FormParam("name") String bookName,
                             @FormParam("author") String author) {
         log.debug("inside addBook");
