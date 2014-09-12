@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- connection properties -->
+		<!-- <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
+		<!-- <property name="connection.url">jdbc:oracle:thin:@localhost:1521:XE</property> -->
+		<!-- <property name="connection.username">system</property> -->
+		<!-- <property name="connection.password">manager</property> -->
+		<!-- <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property> -->
+
+		<!-- connection pooling -->
+		<!-- <property name="connection.provider_class ">org.connection.C3P0ConnectionProvider</property> -->
+		<!-- <property name="c3p0.min_size">5</property> -->
+		<!-- <property name="c3p0.max_size">10</property> -->
+
+		<!-- Print all generated SQL statements to the console -->
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+
+
+		<!-- database tables are automatically created. -->
+		<property name="hbm2ddl.auto">update</property>
+
+		<!-- Mapping POJO to TABLE in underlying Database. -->
+ 		<mapping class="com.dc.entities.StaffLogin" />
+		<mapping class="com.dc.entities.StaffRegEntity" /> 
+		<mapping class="com.dc.entities.Test" />
+		<mapping class="com.dc.entities.SubTest" />
+ 		<mapping class="com.dc.entities.Doctors" /> 
+		<mapping class="com.dc.entities.Patient" />
+		<mapping class="com.dc.entities.TestReports" />
+		
+
+	</session-factory>
+</hibernate-configuration>
