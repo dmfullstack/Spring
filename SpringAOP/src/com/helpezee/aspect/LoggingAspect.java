@@ -15,7 +15,7 @@ import com.helpezee.model.Circle;
 
 
 @Aspect //to tell spring that this is aspect bean
-public class LoggingAspect {
+public class LoggingAspect  {
 
 
 /*
