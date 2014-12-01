@@ -1,0 +1,94 @@
+The Spring EL is similar with OGNL and JSF EL, and evaluated or executed during 
+the bean creation time. In addition, all Spring expressions are available via XML or annotation.
+
+In this tutorial, we show you how to use Spring Expression Language(SpEL), to inject String, integer 
+and bean into property, both in XML and annotation.
+
+package com.mkyong.core;
+ 
+public class Customer {
+ 
+	private Item item;
+ 
+	private String itemName;
+ 
+}
+
+package com.mkyong.core;
+ 
+public class Item {
+ 
+	private String name;
+ 
+	private int qty;
+ 
+}
+
+XML
+----
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+ 
+	<bean id="itemBean" class="com.mkyong.core.Item">
+		<property name="name" value="itemA" />
+		<property name="qty" value="10" />
+	</bean>
+ 
+	<bean id="customerBean" class="com.mkyong.core.Customer">
+		<property name="item" value="#{itemBean}" />
+		<property name="itemName" value="#{itemBean.name}" />
+	</bean>
+ 
+</beans>
+
+Annotation
+----------
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+ 
+@Component("customerBean")
+public class Customer {
+ 
+	@Value("#{itemBean}")
+	private Item item;
+ 
+	@Value("#{itemBean.name}")
+	private String itemName;
+ 
+	//...
+ 
+}
+
+
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+ 
+@Component("itemBean")
+public class Item {
+ 
+	@Value("itemA") //inject String directly
+	private String name;
+ 
+	@Value("10") //inject interger directly
+	private int qty;
+ 
+	public String getName() {
+		return name;
+	}
+ 
+	//...
+}
+
+
+Note: 
+
+To use SpEL in annotation, you must register your component via annotation. 
+
+If you register your bean in XML and define @Value in Java class, the @Value 
+will failed to execute.

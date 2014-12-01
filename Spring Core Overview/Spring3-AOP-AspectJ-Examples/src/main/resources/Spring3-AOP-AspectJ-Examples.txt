@@ -1,0 +1,16 @@
+In simple, Spring AOP + AspectJ allow you to intercept method easily.
+
+Common AspectJ annotations :
+
+    @Before – Run before the method execution
+    @After – Run after the method returned a result
+    @AfterReturning – Run after the method returned a result, intercept the returned result as well.
+    @AfterThrowing – Run after the method throws an exception
+    @Around – Run around the method execution, combine all three advices above.
+    
+ Note:::
+ 
+ To enable AspectJ, you need aspectjrt.jar, aspectjweaver.jar and spring-aop.jar. 
+
+Enable AspectJ:In Spring configuration file, put "<aop:aspectj-autoproxy />", and 
+define your Aspect (interceptor) and normal bean.

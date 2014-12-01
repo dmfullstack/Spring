@@ -1,0 +1,55 @@
+Spring AOP (Aspect-oriented programming) framework is used to modularize 
+cross-cutting concerns in aspects. 
+
+Put it simple, it’s just an interceptor to intercept some processes, for example, 
+when a method is execute, Spring AOP can hijack the executing method, and add extra 
+functionality before or after the method execution.
+
+In Spring AOP, 4 type of advices are supported :
+
+    Before advice – Run before the method execution
+    After returning advice – Run after the method returns a result
+    After throwing advice – Run after the method throws an exception
+    Around advice – Run around the method execution, combine all three advices above.
+    
+    
+    <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+ 
+	<bean id="customerService" class="com.mkyong.customer.services.CustomerService">
+		<property name="name" value="Yong Mook Kim" />
+		<property name="url" value="http://www.mkyong.com" />
+	</bean>
+ 
+	<bean id="hijackBeforeMethodBean" class="com.mkyong.aop.HijackBeforeMethod" />
+ 
+	<bean id="customerServiceProxy" 
+                 class="org.springframework.aop.framework.ProxyFactoryBean">
+ 
+		<property name="target" ref="customerService" />
+ 
+		<property name="interceptorNames">
+			<list>
+				<value>hijackBeforeMethodBean</value>
+			</list>
+		</property>
+	</bean>
+</beans>
+
+
+    ‘target’ – Define which bean you want to hijack.
+    ‘interceptorNames’ – Define which class (advice) you want to apply on this proxy /target object..
+    
+    
+    Note:
+    
+    To use Spring proxy, you need to add CGLIB2 library. 
+    Add below in Maven pom.xml file.
+
+	<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib</artifactId>
+		<version>2.2.2</version>
+	</dependency>
